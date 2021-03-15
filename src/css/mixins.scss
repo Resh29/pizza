@@ -1,0 +1,16 @@
+// font-family: 'Catamaran', sans-serif;
+// font-family: 'Caveat', cursive;
+// font-family: 'Italiana', serif;
+
+@mixin heading($size, $color) {
+  color: $color;
+  font-size: $size;
+  font-family: 'Caveat', cursive;
+}
+
+@mixin text-bold($size, $color) {
+  color: $color;
+  font-size: $size;
+  font-family: 'Catamaran', sans-serif;
+  font-weight: bold;
+}
