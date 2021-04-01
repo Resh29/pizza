@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 
 export const AppHeader = () => {
+  const history = useHistory();
   const observable = useRef(null);
   const [viewport, setViewport] = useState(0);
   const [position, setPosition] = useState('header absolute');
+  const [isListen, setIsListen] = useState(false);
 
   const listener = debounce(() => {
     let coords =
@@ -16,10 +19,20 @@ export const AppHeader = () => {
     }
   }, 300);
 
+  const setListener = () => {
+    if (isListen) {
+      return;
+    } else {
+      window.addEventListener('scroll', listener);
+      setIsListen(true);
+    }
+  };
+
   useEffect(() => {
     const clientHeight = document.documentElement.clientHeight - 200;
     setViewport(clientHeight);
-    window.addEventListener('scroll', listener);
+    setListener();
+    // return () => window.removeEventListener('scroll', listener);
   });
 
   function debounce(func, ms) {
@@ -37,22 +50,29 @@ export const AppHeader = () => {
   return (
     <header className={position} ref={observable}>
       <nav className="navbar">
-        <a href="/" className="navbar__branding">
+        <a
+          href="/"
+          className="navbar__branding"
+          onClick={(e) => {
+            e.preventDefault();
+            history.push('/about');
+          }}
+        >
           {' '}
           Hi Pizza{' '}
         </a>
         <ul className="navbar__nav">
           <li className="navbar__item">
-            <a href="#" className="navbar__link">
+            <NavLink to="/" className="navbar__link" exact>
               {' '}
-              Some{' '}
-            </a>
+              Home{' '}
+            </NavLink>
           </li>
           <li className="navbar__item">
-            <a href="#" className="navbar__link active">
+            <NavLink to="/a" className="navbar__link" exact>
               {' '}
-              Link{' '}
-            </a>
+              About{' '}
+            </NavLink>
           </li>
         </ul>
       </nav>

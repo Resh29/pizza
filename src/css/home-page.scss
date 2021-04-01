@@ -1,5 +1,6 @@
 @import './mixins';
-$orange: #fa7a35;
+@import './colors';
+
 .home-page {
   &__start-screen {
     min-height: 100vh;
