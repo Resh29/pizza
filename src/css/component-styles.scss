@@ -1,0 +1,27 @@
+.btn {
+  border: initial;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  text-align: center;
+  background-color: initial;
+  cursor: pointer;
+  border-radius: 5px;
+}
+button.btn-orange,
+input.btn-orange {
+  background-color: $orange;
+  transition: all 0.3s;
+  color: #fff;
+  &:hover {
+    background-color: transparentize($orange, 0.2);
+  }
+}
+button.btn-red,
+input.btn-red {
+  background-color: $red;
+  transition: all 0.3s;
+  color: #fff;
+  &:hover {
+    background-color: transparentize($red, 0.2);
+  }
+}
