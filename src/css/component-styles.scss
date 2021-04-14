@@ -6,6 +6,9 @@
   background-color: initial;
   cursor: pointer;
   border-radius: 5px;
+  &:disabled {
+    background-color: silver !important;
+  }
 }
 button.btn-orange,
 input.btn-orange {
@@ -23,5 +26,27 @@ input.btn-red {
   color: #fff;
   &:hover {
     background-color: transparentize($red, 0.2);
+  }
+}
+
+.divider {
+  height: 64px;
+  position: relative;
+  background-color: bisque;
+  &::after {
+    content: 'Look below!';
+    font-size: 24px;
+    color: $orange;
+    font-family: 'Italiana', serif;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 80%;
+    width: 100%;
+    top: 5%;
+    border-top: 3px rgb(121, 121, 121) dashed;
+    border-bottom: 3px rgb(121, 121, 121) dashed;
   }
 }

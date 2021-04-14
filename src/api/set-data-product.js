@@ -13,7 +13,7 @@ export const setFileAndData = () => {
       image: imageRef,
     };
     await db
-      .ref(`products/${data._id}`)
+      .ref(`products/${data.category}/${data._id}`)
       .set(currentData)
       .then((m) => console.log('Data successfull saved'));
 

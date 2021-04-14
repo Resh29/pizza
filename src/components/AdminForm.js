@@ -3,6 +3,7 @@ import { setFileAndData } from '../api/set-data-product';
 
 export const AdminForm = () => {
   const setDataToStorage = setFileAndData();
+  const [fileValue, setFileValue] = useState('');
   const form = useRef(null);
   const [data, setData] = useState({});
   const changeHandler = (e) => {
@@ -11,28 +12,24 @@ export const AdminForm = () => {
 
   const fileUpload = (e) => {
     const file = e.target.files[0];
+    setFileValue(e.target.value);
     const fileName = file.name;
     setData({ ...data, fileName, file: file });
   };
   const resetForm = () => {
-    Object.keys(data).forEach((key) => {
-      if (form.current[key]) {
-        form.current[key].classList.remove('touched');
-      } else {
-        return;
-      }
-    });
-    form.current.reset();
     setData({});
+    setFileValue('');
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
     const _id = Date.now();
-
     setDataToStorage({ ...data, _id });
-
     resetForm();
+  };
+  const setIngredients = (e) => {
+    let currentValue = e.target.value.split(',');
+    setData({ ...data, [e.target.name]: currentValue });
   };
 
   function validate(e) {
@@ -40,10 +37,8 @@ export const AdminForm = () => {
 
     setData({
       ...data,
-      [e.target.name]: parseFloat(s.replace(/[^0-9\.]/g, '')).toFixed(2),
+      [e.target.name]: s.replace(/[^0-9\.]/g, ''),
     });
-
-    e.target.value = s.replace(/[^0-9\.]/g, '');
   }
 
   const formValidate = (e) => {
@@ -65,7 +60,7 @@ export const AdminForm = () => {
                   name="image"
                   className="validate-input"
                   onChange={fileUpload}
-                  accept="image/*"
+                  value={fileValue}
                   required
                 />
 
@@ -85,6 +80,7 @@ export const AdminForm = () => {
                   className="validate-input"
                   onChange={changeHandler}
                   onBlur={formValidate}
+                  value={data.name || ''}
                 />
                 <label htmlFor="product-name"> product name </label>
               </div>
@@ -96,6 +92,7 @@ export const AdminForm = () => {
                   required
                   onChange={changeHandler}
                   onBlur={formValidate}
+                  value={data.category || ''}
                 >
                   <option defaultValue={''}> </option>
                   <option value="pizza"> pizza </option>
@@ -105,15 +102,28 @@ export const AdminForm = () => {
                 <label htmlFor="product-category"> category </label>
               </div>
               <div className="form__input-field col">
+                <textarea
+                  name="ingredients"
+                  id="product-ingredients"
+                  required
+                  className="validate-input textarea"
+                  onChange={setIngredients}
+                  onBlur={formValidate}
+                  value={data.ingredients || ''}
+                />
+                <label htmlFor="product-ingredients"> Ingredients </label>
+              </div>
+              {/* ingredients */}
+              <div className="form__input-field col">
                 <input
                   type="text"
                   name="price"
                   id="product-price"
                   required
                   className="validate-input"
-                  // onChange={changeHandler}
                   onChange={(e) => validate(e)}
                   onBlur={formValidate}
+                  value={data.price || ''}
                 />
                 <label htmlFor="product-price"> Price </label>
               </div>
@@ -126,6 +136,7 @@ export const AdminForm = () => {
                   className="validate-input textarea"
                   onChange={changeHandler}
                   onBlur={formValidate}
+                  value={data.description || ''}
                 />
                 <label htmlFor="product-desc">Description </label>
               </div>

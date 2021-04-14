@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.scss';
+import 'normalize.css';
 import firebase from 'firebase';
 
 import reportWebVitals from './reportWebVitals';
 import { firebaseConfig } from './api/firebase.config';
+import { ProductsContextProvider } from './context/ProductsContext';
 
 //firebase initialization
 firebase.initializeApp(firebaseConfig);
@@ -13,7 +15,9 @@ firebase.initializeApp(firebaseConfig);
 // firebase.analytics();
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ProductsContextProvider>
+      <App />
+    </ProductsContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
