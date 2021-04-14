@@ -1,34 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export const ProductCard = () => {
+export const ProductCard = ({ props }) => {
+  const [img, setImg] = useState(false);
+
   return (
     <div className="col col-l-3 col-m-2 ">
       <div className="product-card">
         <div className="product-card__header">
-          <h5 className="card-heading"> Some pizza </h5>
+          <h5 className="card-heading"> {props.name} </h5>
         </div>
 
         <div className="product-card__body">
-          <div
-            className="product-card__overlay"
-            onClick={(e) => {
-              e.preventDefault();
-              console.log('click');
-            }}
-          >
-            <a href="#" className="d-link product-card__link">
+          <div className="product-card__overlay">
+            <Link
+              to={`/products/${props.category}/${props._id}`}
+              className="d-link product-card__link"
+            >
               <span>Details</span>
-            </a>
+            </Link>
           </div>
+
           <img
-            src="https://cdn.pixabay.com/photo/2017/12/05/20/10/pizza-3000285_960_720.png"
-            alt="pizza"
+            onLoad={() => setImg(true)}
+            style={img ? { opacity: 1 } : { opacity: 0 }}
+            src={props.image}
+            alt={props.name}
             className="img"
           />
         </div>
         <div className="product-card__footer">
-          <span className="product-card__footer-text"> Buy now </span>
-          <span className="product-card__footer-text">Price: $ 9.9 </span>
+          <button className=" btn product-card__footer-text buy"> Buy now </button>
+          <span className="product-card__footer-text">
+            Price: $ {Number(props.price).toFixed(2)}{' '}
+          </span>
         </div>
       </div>
     </div>

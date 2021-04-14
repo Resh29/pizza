@@ -108,14 +108,23 @@
   }
 }
 
+.col-2 {
+  @media (min-width: 575px) and (max-width: 991px) {
+    flex: 1 50%;
+    max-width: 50%;
+  }
+}
+
 .col-l-3 {
   @media (min-width: 992px) {
     flex: 1 33.33%;
+    max-width: 33.33%;
   }
 }
-.col-m-2 {
-  @media (min-width: 575px) and (max-width: 991px) {
+.col-l-2 {
+  @media (min-width: 992px) {
     flex: 1 50%;
+    max-width: 50%;
   }
 }
 
@@ -169,10 +178,6 @@
 
 .d-link {
   text-decoration: none;
-  color: inherit;
-  &:visited {
-    color: inherit;
-  }
 }
 
 .flow-text {

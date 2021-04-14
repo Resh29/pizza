@@ -25,14 +25,16 @@
     height: auto;
   }
   &__content-wrapper {
-    height: auto;
     background: url('../img/wood-1759566_1920.jpg') no-repeat center / cover;
     background-attachment: fixed;
     padding-top: 5rem;
     padding-bottom: 8rem;
     color: #fff;
+    min-height: 794px;
+    position: relative;
   }
   .arc {
+    display: none;
     height: 200px;
     margin: 0 auto;
     position: relative;
@@ -51,11 +53,12 @@
     }
   }
   .divider {
-    height: 100px;
-    background-color: $orange;
-    @media (max-width: 767px) {
-      height: 20px;
-    }
+    width: 100%;
+
+    // background-color: $orange;
+    // @media (max-width: 767px) {
+    //   height: 20px;
+    // }
 
     &__heading {
       @include heading(56px, $orange);

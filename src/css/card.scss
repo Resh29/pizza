@@ -29,7 +29,7 @@
     background-color: #fff;
     position: relative;
     text-align: center;
-    min-height: 200px;
+    min-height: 264px;
     display: flex;
     .img {
       margin: auto auto;
@@ -45,9 +45,17 @@
     border-top: 3px rgb(121, 121, 121) dashed;
     border-radius: 0 0 5px 5px;
   }
+
   &__footer-text {
     color: rgb(121, 121, 121);
     padding: 1rem;
+    transition: color 0.2s;
+    &.buy {
+      color: $green;
+    }
+    &.buy:hover {
+      color: $orange;
+    }
   }
   &__overlay {
     position: absolute;

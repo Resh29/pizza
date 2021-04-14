@@ -1,0 +1,69 @@
+.products-page {
+  min-height: 100vh;
+  &__banner {
+    height: 250px;
+    padding-top: 4rem;
+    background: center / cover no-repeat;
+    background-attachment: fixed;
+    transition: all 0.2s;
+
+    h1 {
+      @include heading(92px, #fff);
+      text-transform: capitalize;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.432);
+    }
+  }
+  .pizza {
+    background-image: url('../img/ivan-torres-MQUqbmszGGM-unsplash.jpg');
+  }
+  .sushi {
+    background-image: url('../img/sushi-bg.jpg');
+  }
+  .drinks {
+    background-image: url('../img/drinks.jpg');
+  }
+  &__wrapper {
+    padding-top: 4rem;
+    min-height: 100vh;
+    background: center / cover no-repeat url('../img/wood-1759566_1920.jpg');
+    background-attachment: fixed;
+    .container,
+    .row {
+      height: inherit;
+    }
+  }
+  &__pagination {
+    justify-content: center;
+    @media (max-width: 575px) {
+      display: none;
+    }
+  }
+  &__load-more {
+    justify-content: center;
+    padding-bottom: 2rem;
+    @media (min-width: 576px) {
+      display: none;
+    }
+  }
+  &__controls-box {
+    margin: 0 1rem;
+    padding: 0;
+    @media (max-width: 575px) {
+      display: none;
+    }
+    .controls {
+      display: inline;
+      padding: 0 1rem;
+      color: white;
+      font-size: 18px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .controls.active {
+      color: $orange;
+      border: 1px $orange solid;
+      border-radius: 5px;
+    }
+  }
+}
