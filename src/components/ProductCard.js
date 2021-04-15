@@ -8,7 +8,10 @@ export const ProductCard = ({ props }) => {
     <div className="col col-l-3 col-m-2 ">
       <div className="product-card">
         <div className="product-card__header">
-          <h5 className="card-heading"> {props.name} </h5>
+          <h5 className="card-heading">
+            {' '}
+            {props.name} {props.views}{' '}
+          </h5>
         </div>
 
         <div className="product-card__body">

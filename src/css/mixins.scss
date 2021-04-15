@@ -14,3 +14,11 @@
   font-family: 'Catamaran', sans-serif;
   font-weight: bold;
 }
+
+@mixin font-parameters($size, $color, $height, $spacing, $family) {
+  font-size: $size;
+  color: $color;
+  line-height: $height;
+  word-spacing: $spacing;
+  font-family: $family;
+}

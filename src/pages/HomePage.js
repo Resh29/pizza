@@ -3,18 +3,26 @@ import { getData } from '../api/get-data';
 import { Loader } from '../components/Loader';
 import { ProductCard } from '../components/ProductCard';
 import { ProductsContext } from '../context/ProductsContext';
+import { sortBy } from '../helpers/sort-by';
 
 export const HomePage = () => {
   const [products, setProducts] = useContext(ProductsContext);
   const [loading, setLoading] = useState(true);
   const fetchData = getData();
+  const sort = sortBy();
+
+  function normalize(arr) {
+    return arr.reduce((acc, cur) => {
+      return acc.concat(cur);
+    }, []);
+  }
 
   useEffect(() => {
     async function getProducts() {
       try {
         const result = await fetchData('/products');
 
-        setProducts(result.slice(0, 6));
+        setProducts(sort(normalize(result), 'views').slice(0, 6));
         setLoading(false);
       } catch (error) {
         console.log(error);
