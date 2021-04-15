@@ -13,15 +13,9 @@ export const SinglePage = () => {
   const history = useHistory();
   const update = updateProduct();
 
-  let stylesClosed = {
-    padding: '1rem',
-    overflow: 'hidden',
-    maxHeight: '250px',
-  };
-  let stylesOpen = {
-    padding: '1rem',
-    overflow: 'hidden',
-    maxHeight: '500px',
+  const stylesOpen = {
+    maxHeight: '1200px',
+    marginBottom: '2rem',
   };
 
   useEffect(() => {
@@ -42,15 +36,9 @@ export const SinglePage = () => {
     <section className="single">
       <div className="container">
         {!loading ? (
-          <div
-            className="single__product-card"
-            style={{ background: '#fff', padding: '2rem', borderRadius: '5px' }}
-          >
+          <div className="single__product-card">
             <header className="single__header">
-              <h1>
-                {' '}
-                {product.name} <span> {product.views} </span>{' '}
-              </h1>
+              <h1> {product.name} </h1>
             </header>
             <div className="row">
               <div className="col col-l-2">
@@ -59,20 +47,19 @@ export const SinglePage = () => {
                 </div>
               </div>
               <div className="col col-l-2">
-                <div className="single__desc" style={isOpen ? stylesOpen : stylesClosed}>
-                  <p> {product.description} </p>
-                  <ul>
+                <div className="single__desc" style={isOpen ? stylesOpen : {}}>
+                  <h4 className="single__desc-heading">
                     {' '}
-                    <h4>Ingridients:</h4>
+                    Description & <span>Ingredients</span>{' '}
+                  </h4>
+                  <p className="single__desc-text"> {product.description} </p>
+                  <ul className="single__desc-ingredients-list">
+                    {' '}
+                    <h4 className="single__desc-heading">Ingridients:</h4>
                     {product.ingredients
-                      ? product.ingredients.map((ingredient) => {
+                      ? product.ingredients.map((ingredient, i) => {
                           return (
-                            <li
-                              style={{
-                                listStyle: 'inside',
-                                marginLeft: '1rem',
-                              }}
-                            >
+                            <li className="single__desc-ingredients-list__item" key={i}>
                               {' '}
                               {ingredient}{' '}
                             </li>
@@ -81,34 +68,20 @@ export const SinglePage = () => {
                       : null}
                   </ul>
                 </div>
-                <button
-                  className="btn"
-                  onClick={() => setIsOpen((v) => !v)}
-                  style={{ marginLeft: '3rem', marginTop: '1rem' }}
-                >
-                  {' '}
-                  {isOpen ? 'close' : 'see more'}
-                </button>
+                <div className="single__desc-overflow">
+                  <button className="btn" onClick={() => setIsOpen((v) => !v)}>
+                    {' '}
+                    {isOpen ? 'close' : 'see more'}
+                  </button>
+                </div>
               </div>
             </div>
 
             <footer className="single__footer">
-              <div
-                className="single__price"
-                style={{
-                  padding: '0 1rem',
-                  maxWidth: '50%',
-                  marginLeft: 'auto',
-                  color: 'tomato',
-                  fontSize: '1.2rem',
-                }}
-              >
-                {' '}
-                Price:{' '}
-                <span style={{ float: 'right', color: 'orange' }}>
-                  {product.price} $
-                </span>{' '}
-              </div>
+              <p className="single__price">
+                Price:
+                <span>{product.price} $</span>{' '}
+              </p>
               <div className="single__footer-btns" style={{ marginTop: '3rem' }}>
                 <button className="btn btn-red" onClick={() => history.goBack()}>
                   {' '}

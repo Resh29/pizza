@@ -14,16 +14,23 @@
 @import './css/single';
 
 body {
-  margin: 0;
   // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
   //   'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   // -webkit-font-smoothing: antialiased;
   // -moz-osx-font-smoothing: grayscale;
-  font-family: 'Catamaran', sans-serif;
+
+  @include font-parameters(100%, inherit, 1.2, 4px, ('Catamaran', sans-serif));
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+button:focus {
+  outline: #ccc auto 1px;
+  outline-color: #ccc;
+  outline-style: auto;
+  outline-width: 1px;
 }
 
 .App {
