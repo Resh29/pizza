@@ -6,6 +6,8 @@ import { useWindowSize } from '../helpers/resize';
 import { useDebounce } from '../helpers/debounce';
 import { useParams } from 'react-router';
 import { Loader } from '../components/Loader';
+import { ProductsSort } from '../components/ProductsSort';
+import { sortBy } from '../helpers/sort-by';
 
 export const ProductsPage = () => {
   // Получаем контекст...
@@ -31,6 +33,8 @@ export const ProductsPage = () => {
 
   const params = useParams();
 
+  const sort = sortBy();
+
   //Отслеживаем изменение размера окна. Если осуществляется переход от меньшего к большему - обнуляем perPage
 
   const resizeWatcher = debounce(() => {
@@ -50,6 +54,12 @@ export const ProductsPage = () => {
   // Получаем список продуктов из БД используя параметры из ссылки,
   // полученный результат записываем в контекст
 
+  function normalize(arr) {
+    return arr.reduce((acc, cur) => {
+      return acc.concat(cur);
+    }, []);
+  }
+
   useEffect(() => {
     async function get() {
       try {
@@ -57,11 +67,11 @@ export const ProductsPage = () => {
           (await getProducts('/products/' + params.slug).catch((e) =>
             console.error(e)
           )) || [];
-        setProducts(result);
+        setProducts(sort(normalize(result)));
         setLoading(false);
       } catch (error) {
         console.error(error);
-        // setLoading(false);
+        setLoading(false);
       }
     }
     get();
@@ -120,7 +130,7 @@ export const ProductsPage = () => {
       <div className="divider"></div>
       <section className="products-page__wrapper">
         <div className="container">
-          {' '}
+          <ProductsSort />{' '}
           {pagesControls.length ? (
             <div className="products-page__pagination row">
               <button className="btn btn-orange" onClick={prev}>
@@ -148,7 +158,7 @@ export const ProductsPage = () => {
             </div>
           ) : null}
           <div className="row">
-            {loading ? (
+            {!currentProducts.length ? (
               <Loader />
             ) : (
               <>

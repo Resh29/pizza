@@ -1,0 +1,21 @@
+.products-sort {
+  display: flex;
+  justify-content: flex-end;
+  &__select {
+    //   $size, $color, $height, $spacing, $family
+
+    // border-color: initial;
+
+    @include font-parameters(1.2rem, $green, inherit, inherit, ('Catamaran', sans-serif));
+    border-radius: 5px;
+    border-color: initial;
+    background-color: bisque;
+    margin-right: 2rem;
+  }
+  label {
+    color: white;
+    align-self: center;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+  }
+}
