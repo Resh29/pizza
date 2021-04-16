@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { getData } from '../api/get-data';
 import { Loader } from '../components/Loader';
 import { ProductCard } from '../components/ProductCard';
+import { ProductsSort } from '../components/ProductsSort';
 import { ProductsContext } from '../context/ProductsContext';
 import { sortBy } from '../helpers/sort-by';
 
@@ -12,9 +13,13 @@ export const HomePage = () => {
   const sort = sortBy();
 
   function normalize(arr) {
-    return arr.reduce((acc, cur) => {
-      return acc.concat(cur);
-    }, []);
+    return arr
+      .reduce((acc, cur) => {
+        return acc.concat(cur);
+      }, [])
+      .reduce((acc, cur) => {
+        return acc.concat(Object.values(cur));
+      }, []);
   }
 
   useEffect(() => {
@@ -22,7 +27,8 @@ export const HomePage = () => {
       try {
         const result = await fetchData('/products');
 
-        setProducts(sort(normalize(result), 'views').slice(0, 6));
+        setProducts(sort(normalize(result)).slice(0, 6));
+
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -30,6 +36,7 @@ export const HomePage = () => {
       }
     }
     getProducts();
+    return () => setProducts([]);
   }, []);
 
   return (
@@ -50,6 +57,7 @@ export const HomePage = () => {
           </div>
         </div>
         <div className="home-page__content-wrapper">
+          <ProductsSort />
           {loading ? (
             <Loader />
           ) : (

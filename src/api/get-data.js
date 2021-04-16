@@ -9,7 +9,7 @@ export const getData = () => {
         const data = Object.keys(result).map((key) => {
           return { ...result[key] };
         });
-        console.log(data);
+
         return data;
       } else {
         return;

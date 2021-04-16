@@ -1,18 +1,19 @@
 function sortBy() {
-  return (arr, params) => {
-    let start = performance.now();
-    const result = arr.reduce((acc, cur) => {
-      return acc.concat(Object.values(cur));
-    }, []);
-    const data = result.sort((a, b) => {
-      if (a[params] > b[params]) {
-        return -1;
-      } else if (a[params] < b[params]) {
-        return 1;
-      }
-    });
-    console.log(performance.now() - start);
-    return data;
+  const cases = {
+    'low-to-high': (arr, params) => {
+      return arr.sort((a, b) => +a[params] - +b[params]);
+    },
+    'high-to-low': (arr, params) => {
+      return arr.sort((a, b) => {
+        return +b[params] - +a[params];
+      });
+    },
+  };
+
+  return (arr, params = 'views', inCase = 'high-to-low') => {
+    const res = cases[inCase](arr, params);
+
+    return res;
   };
 }
 
