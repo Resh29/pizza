@@ -1,18 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ProductsContext } from '../context/ProductsContext';
 import { sortBy } from '../helpers/sort-by';
 
-export const ProductsSort = () => {
+export const ProductsSort = ({ props }) => {
+  const initialState = ['views', 'high-to-low'];
   const [products, setProducts] = useContext(ProductsContext);
+  const [params, setParams] = useState(initialState);
   const sort = sortBy();
 
   const changeHandler = (e) => {
-    setProducts([]);
     const params = e.target.value.split(' ');
-    setTimeout(() => {
-      setProducts(sort(products, params[0], params[1]));
-    }, 100);
+    setParams(params);
+    setProducts((old) => sort([...old], params[0], params[1]));
   };
+
+  useEffect(() => {
+    setProducts(sort(props, params[0], params[1]));
+  }, [props]);
+
   return (
     <div className="products-sort">
       {' '}

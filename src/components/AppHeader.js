@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
 
 export const AppHeader = () => {
   const history = useHistory();
+  const [list] = useContext(CartContext);
 
   return (
     <header className="header">
@@ -47,6 +49,11 @@ export const AppHeader = () => {
             <NavLink to="/products/drinks" className="navbar__link" exact>
               {' '}
               Drinks{' '}
+            </NavLink>
+          </li>
+          <li className="navbar__item">
+            <NavLink to="/products-cart" className="navbar__link">
+              Cart <span style={{ color: 'red' }}> {list.length || ''} </span>
             </NavLink>
           </li>
         </ul>

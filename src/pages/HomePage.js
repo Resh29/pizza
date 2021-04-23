@@ -3,6 +3,7 @@ import { getData } from '../api/get-data';
 import { Loader } from '../components/Loader';
 import { ProductCard } from '../components/ProductCard';
 import { ProductsSort } from '../components/ProductsSort';
+import { CartContext } from '../context/CartContext';
 import { ProductsContext } from '../context/ProductsContext';
 import { sortBy } from '../helpers/sort-by';
 
@@ -11,6 +12,7 @@ export const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const fetchData = getData();
   const sort = sortBy();
+  const [list, addToCart] = useContext(CartContext);
 
   function normalize(arr) {
     return arr
@@ -57,14 +59,13 @@ export const HomePage = () => {
           </div>
         </div>
         <div className="home-page__content-wrapper">
-          <ProductsSort />
           {loading ? (
             <Loader />
           ) : (
             <div className="container">
               <div className="row">
                 {products.map((el) => (
-                  <ProductCard key={el._id} props={{ ...el }} />
+                  <ProductCard key={el._id} props={[el, addToCart]} />
                 ))}
               </div>
             </div>

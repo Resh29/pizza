@@ -1,0 +1,128 @@
+.products-cart {
+  min-height: 100vh;
+  background: url('../img/wood-1759566_1920.jpg');
+  background-attachment: fixed;
+  &__content {
+    padding: 2rem;
+    margin-top: 10%;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  &__order {
+    .order-buttons {
+      width: 80%;
+      margin: 1rem auto;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  h4 {
+    text-align: center;
+    margin-top: 6rem;
+    @include text-bold(2rem, $grey);
+  }
+
+  &__table {
+    background-color: #fff;
+    border: 0px;
+    border-radius: 5px;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    box-shadow: 0 5px 10px 5px #ccc;
+
+    button {
+      font-size: 1.2rem;
+      font-weight: bold;
+      outline: none !important;
+
+      color: $green;
+      &:first-child {
+        color: $orange;
+      }
+      &:last-child {
+        color: $red;
+      }
+    }
+    button:disabled {
+      background-color: initial !important;
+      color: $grey;
+    }
+
+    tr:last-child {
+      border-bottom: 0;
+    }
+    caption {
+      font-size: 1.5em;
+      margin: 0.5em 0 0.75em;
+      color: $orange;
+      text-transform: capitalize;
+    }
+
+    tr {
+      border-bottom: 2px solid $orange;
+      padding: 0.35em;
+      margin-bottom: 1rem;
+    }
+
+    th,
+    td {
+      padding: 0.625em;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    th {
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      @include text-bold(0.85em, $green);
+    }
+
+    @media screen and (max-width: 600px) {
+      caption {
+        font-size: 1.3em;
+      }
+
+      thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+      }
+
+      tr {
+        border-bottom: 2px solid $green;
+        display: block;
+        margin-bottom: 0.625em;
+      }
+
+      td {
+        border-bottom: 1px solid $orange;
+        display: block;
+        font-size: 0.8em;
+        text-align: right;
+      }
+
+      td::before {
+        /*
+            * aria-label has no advantage, it won't be read inside a 
+            content: attr(aria-label);
+            */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      td:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+}

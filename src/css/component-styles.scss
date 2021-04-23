@@ -28,6 +28,15 @@ input.btn-red {
     background-color: transparentize($red, 0.2);
   }
 }
+button.btn-green,
+input.btn-green {
+  background-color: $green;
+  transition: all 0.3s;
+  color: #fff;
+  &:hover {
+    background-color: transparentize($green, 0.2);
+  }
+}
 
 .divider {
   height: 64px;

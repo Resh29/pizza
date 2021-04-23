@@ -8,6 +8,7 @@ import firebase from 'firebase';
 import reportWebVitals from './reportWebVitals';
 import { firebaseConfig } from './api/firebase.config';
 import { ProductsContextProvider } from './context/ProductsContext';
+import { CartContextProvider } from './context/CartContext';
 
 //firebase initialization
 firebase.initializeApp(firebaseConfig);
@@ -16,7 +17,9 @@ firebase.initializeApp(firebaseConfig);
 ReactDOM.render(
   <React.StrictMode>
     <ProductsContextProvider>
-      <App />
+      <CartContextProvider>
+        <App />
+      </CartContextProvider>
     </ProductsContextProvider>
   </React.StrictMode>,
   document.getElementById('root')

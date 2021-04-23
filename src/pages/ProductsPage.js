@@ -8,12 +8,18 @@ import { useParams } from 'react-router';
 import { Loader } from '../components/Loader';
 import { ProductsSort } from '../components/ProductsSort';
 import { sortBy } from '../helpers/sort-by';
+import { CartContext } from '../context/CartContext';
 
 export const ProductsPage = () => {
   // Получаем контекст...
   const [products, setProducts] = useContext(ProductsContext);
+  const [cartList, addToCart] = useContext(CartContext);
   // Список продуктов для отображения...
   const [currentProducts, setCurrentProducts] = useState([]);
+
+  //состояние пропсов, передаваемых в компонент сортировки
+
+  const [props, setProps] = useState([]);
   // Контроллеры переключения пагинации
   const [pagesControls, setpagesControls] = useState([]);
   // Состояние страниц
@@ -32,8 +38,6 @@ export const ProductsPage = () => {
   const getProducts = getData();
 
   const params = useParams();
-
-  const sort = sortBy();
 
   //Отслеживаем изменение размера окна. Если осуществляется переход от меньшего к большему - обнуляем perPage
 
@@ -67,7 +71,8 @@ export const ProductsPage = () => {
           (await getProducts('/products/' + params.slug).catch((e) =>
             console.error(e)
           )) || [];
-        setProducts(sort(normalize(result)));
+        setProps(normalize(result));
+
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -121,7 +126,9 @@ export const ProductsPage = () => {
       setPage((v) => (v += 1));
     }
   };
-
+  function add(obj) {
+    addToCart(obj);
+  }
   return (
     <main className="products-page">
       <section className={`products-page__banner ${params.slug}`}>
@@ -130,7 +137,7 @@ export const ProductsPage = () => {
       <div className="divider"></div>
       <section className="products-page__wrapper">
         <div className="container">
-          <ProductsSort />{' '}
+          <ProductsSort props={props} />{' '}
           {pagesControls.length ? (
             <div className="products-page__pagination row">
               <button className="btn btn-orange" onClick={prev}>
@@ -158,13 +165,13 @@ export const ProductsPage = () => {
             </div>
           ) : null}
           <div className="row">
-            {!currentProducts.length ? (
+            {loading ? (
               <Loader />
             ) : (
               <>
                 {currentProducts.length ? (
                   currentProducts.map((el) => {
-                    return <ProductCard props={el} key={el._id} />;
+                    return <ProductCard props={[el, add]} key={el._id} />;
                   })
                 ) : (
                   <p

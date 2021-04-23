@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import { getSingle } from '../api/get-single';
 import { updateProduct } from '../api/update-product';
 import { Loader } from '../components/Loader';
+import { CartContext } from '../context/CartContext';
 
 export const SinglePage = () => {
   const location = useLocation();
@@ -12,6 +13,7 @@ export const SinglePage = () => {
   const fetchData = getSingle();
   const history = useHistory();
   const update = updateProduct();
+  const [cartList, addToCart] = useContext(CartContext);
 
   const stylesOpen = {
     maxHeight: '1200px',
@@ -90,7 +92,7 @@ export const SinglePage = () => {
                 <button
                   className="btn btn-orange "
                   style={{ float: 'right' }}
-                  onClick={() => alert('товар добавлен в корзину, которой еще нет!')}
+                  onClick={() => addToCart(product)}
                 >
                   add to cart
                 </button>
