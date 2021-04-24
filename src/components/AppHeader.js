@@ -52,6 +52,11 @@ export const AppHeader = () => {
             </NavLink>
           </li>
           <li className="navbar__item">
+            <NavLink to="/login" className="navbar__link">
+              Login
+            </NavLink>
+          </li>
+          <li className="navbar__item">
             <NavLink to="/products-cart" className="navbar__link">
               Cart <span style={{ color: 'red' }}> {list.length || ''} </span>
             </NavLink>

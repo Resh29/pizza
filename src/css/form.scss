@@ -14,13 +14,13 @@
         height: 1px;
         margin: 0;
       }
-      color: grey;
+      color: $grey;
       font-size: 16px;
       width: 100%;
       margin-bottom: 1rem;
       padding: 0.4rem;
       border-top: none;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $grey;
       border-left: none;
       border-right: none;
       line-height: 1.2;
@@ -36,6 +36,7 @@
       font-size: 16px;
       color: rgb(92, 92, 92);
       transition: all 0.3s;
+      line-height: 1;
     }
     input:focus ~ label,
     select:focus ~ label {
@@ -52,10 +53,10 @@
       font-size: 12px;
     }
     .touched:invalid {
-      border-bottom: red 1px solid;
+      border-bottom: $red 1px solid;
     }
     .touched:valid {
-      border-bottom: green 1px solid;
+      border-bottom: $green 1px solid;
     }
     textarea:valid ~ label {
       transform: translateY(-90px);

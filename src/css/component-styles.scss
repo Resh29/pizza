@@ -10,6 +10,7 @@
     background-color: silver !important;
   }
 }
+a.btn-orange,
 button.btn-orange,
 input.btn-orange {
   background-color: $orange;
@@ -19,6 +20,7 @@ input.btn-orange {
     background-color: transparentize($orange, 0.2);
   }
 }
+a.btn-red,
 button.btn-red,
 input.btn-red {
   background-color: $red;
@@ -28,6 +30,7 @@ input.btn-red {
     background-color: transparentize($red, 0.2);
   }
 }
+a.btn-green,
 button.btn-green,
 input.btn-green {
   background-color: $green;

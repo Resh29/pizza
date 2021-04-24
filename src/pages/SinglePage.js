@@ -34,6 +34,13 @@ export const SinglePage = () => {
     getSingle();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, []);
+
   return (
     <section className="single">
       <div className="container">
