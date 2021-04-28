@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import { useAuth } from '../api/auth';
 import { Form } from '../components/Form';
 
 export const RegisrtationPage = () => {
   const history = useHistory();
+  const [user, setUser] = useState({});
+  const auth = useAuth();
+
+  const changeHandler = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
   const Footer = () => {
     return (
@@ -33,19 +40,27 @@ export const RegisrtationPage = () => {
         required: true,
       },
       { type: 'email', name: 'email', id: 'email', label: 'email', required: true },
+      {
+        type: 'password',
+        name: 'password',
+        id: 'password',
+        label: 'password',
+        required: true,
+      },
       { type: 'tel', name: 'phone', id: 'phone', label: 'phone', required: true },
       { type: 'text', name: 'address', id: 'address', label: 'address', required: true },
     ],
     footer: Footer,
     actions: {
-      submitHandler() {
-        console.log('submit');
+      async submitHandler() {
+        await auth('registration', user);
       },
+      changeHandler,
     },
   };
 
   return (
-    <section className="regisrtation-page">
+    <section className="regisrtation-page" style={{ padding: '5rem' }}>
       <div className="container">
         <div className="row">
           <Form initialState={initialState} />

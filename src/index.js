@@ -9,6 +9,8 @@ import reportWebVitals from './reportWebVitals';
 import { firebaseConfig } from './api/firebase.config';
 import { ProductsContextProvider } from './context/ProductsContext';
 import { CartContextProvider } from './context/CartContext';
+import { AuthContextProvider } from './context/AuthContext';
+import { MessageContextProvider } from './context/MessageContext';
 
 //firebase initialization
 firebase.initializeApp(firebaseConfig);
@@ -18,7 +20,12 @@ ReactDOM.render(
   <React.StrictMode>
     <ProductsContextProvider>
       <CartContextProvider>
-        <App />
+        <AuthContextProvider>
+          <MessageContextProvider>
+            {' '}
+            <App />
+          </MessageContextProvider>{' '}
+        </AuthContextProvider>
       </CartContextProvider>
     </ProductsContextProvider>
   </React.StrictMode>,

@@ -1,10 +1,20 @@
-import React, { useContext } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { useAuth } from '../api/auth';
+import { AuthContext } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
 
 export const AppHeader = () => {
   const history = useHistory();
   const [list] = useContext(CartContext);
+  const [user] = useContext(AuthContext);
+  const [openState, setOpenState] = useState(false);
+  const location = useLocation();
+  const auth = useAuth();
+
+  useEffect(() => {
+    return () => setOpenState(false);
+  }, [location]);
 
   return (
     <header className="header">
@@ -20,7 +30,17 @@ export const AppHeader = () => {
           {' '}
           Hi Pizza{' '}
         </a>
-        <ul className="navbar__nav">
+        <button
+          className={`navbar__toggler btn ${openState ? 'open' : ''}`}
+          onClick={() => {
+            setOpenState((v) => !v);
+          }}
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+        </button>
+        <ul className={openState ? 'navbar__nav open' : 'navbar__nav'}>
           <li className="navbar__item">
             <NavLink to="/" className="navbar__link" exact>
               {' '}
@@ -51,11 +71,32 @@ export const AppHeader = () => {
               Drinks{' '}
             </NavLink>
           </li>
+          {user ? (
+            <li className="navbar__item">
+              <NavLink to="/login" className="navbar__link">
+                User: {user.name}
+              </NavLink>
+            </li>
+          ) : null}
           <li className="navbar__item">
-            <NavLink to="/login" className="navbar__link">
-              Login
-            </NavLink>
+            {user ? (
+              <a
+                className="navbar__link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  auth('logout');
+                }}
+              >
+                {' '}
+                logout{' '}
+              </a>
+            ) : (
+              <NavLink to="/login" className="navbar__link">
+                Login
+              </NavLink>
+            )}
           </li>
+
           <li className="navbar__item">
             <NavLink to="/products-cart" className="navbar__link">
               Cart <span style={{ color: 'red' }}> {list.length || ''} </span>

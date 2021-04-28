@@ -3,13 +3,69 @@
   position: absolute;
   top: 0;
   transition: all 0.2s;
+  z-index: 2;
+  @media (max-width: 1023px) {
+    position: fixed;
+    background-color: $orange;
+    border-bottom: 4px bisque solid;
+  }
+
   .navbar {
     display: flex;
     padding: 0 2rem;
+    &__toggler {
+      color: #fff;
+      display: none;
+
+      div {
+        height: 4px;
+        width: 3rem;
+        background-color: #fff;
+        margin-bottom: 5px;
+        transition: all 0.3s;
+      }
+      &.open {
+        div:nth-child(1) {
+          transform: rotate(45deg) translateY(8px) translateX(7px);
+        }
+        div:nth-child(2) {
+          opacity: 0;
+        }
+        div:nth-child(3) {
+          transform: rotate(-45deg) translateY(-7px) translateX(3px);
+        }
+      }
+    }
+    @media (max-width: 1023px) {
+      padding: 0;
+      &__nav {
+        position: fixed;
+        padding: 0;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        z-index: 2;
+        width: 70%;
+        background-color: #323232e5;
+        opacity: 0;
+        transform: translateX(-100%);
+        transition: all 0.3s;
+        &.open {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      &__item {
+        display: block !important;
+      }
+      &__toggler {
+        display: block;
+      }
+    }
+
     &__nav {
       margin: 0;
 
-      display: inline;
       margin-left: auto;
     }
     &__item {
@@ -25,6 +81,7 @@
     &__link {
       text-decoration: none;
       @include text-bold(18px, #fff);
+      cursor: pointer;
 
       &::after {
         content: '';
@@ -49,6 +106,10 @@
       display: inline-block;
       padding: 1rem;
       text-shadow: 0 2px 0 bisque;
+      @media (max-width: 1023px) {
+        padding: 0.4rem 0.8rem;
+        color: #fff;
+      }
     }
   }
 }

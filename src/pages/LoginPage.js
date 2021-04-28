@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import { useAuth } from '../api/auth';
 import { Form } from '../components/Form';
 
 export const LoginPage = () => {
   const history = useHistory();
+  const [user, setUser] = useState({});
+  const auth = useAuth();
+  const changeHandler = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
   const footer = () => {
     return (
       <footer className="form__footer">
@@ -32,9 +38,6 @@ export const LoginPage = () => {
         id: 'email',
         required: true,
         label: 'Email',
-        handler: (e) => {
-          console.log(';aga');
-        },
       },
       {
         type: 'password',
@@ -46,12 +49,10 @@ export const LoginPage = () => {
     ],
     footer,
     actions: {
-      submitHandler() {
-        console.log('sadklsd');
+      async submitHandler() {
+        await auth('login', user);
       },
-      changeHandler() {
-        console.log('dada');
-      },
+      changeHandler,
     },
   };
 
