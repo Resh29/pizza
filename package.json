@@ -28,18 +28,16 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
+      ">1%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "since 2010"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "since 2010"
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.6",
     "css-loader": "^4.3.0",
     "img-loader": "^3.0.2",
     "postcss": "^7.0.35",
