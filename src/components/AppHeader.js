@@ -73,7 +73,7 @@ export const AppHeader = () => {
           </li>
           {user ? (
             <li className="navbar__item">
-              <NavLink to="/login" className="navbar__link">
+              <NavLink to="/user" className="navbar__link">
                 User: {user.name}
               </NavLink>
             </li>
@@ -102,6 +102,13 @@ export const AppHeader = () => {
               Cart <span style={{ color: 'red' }}> {list.length || ''} </span>
             </NavLink>
           </li>
+          {user?.isAdmin ? (
+            <li className="navbar__item">
+              <NavLink to="/admin" className="navbar__link">
+                Admin
+              </NavLink>{' '}
+            </li>
+          ) : null}
         </ul>
       </nav>
     </header>

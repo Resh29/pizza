@@ -30,16 +30,25 @@ export const Form = ({ initialState }) => {
             return (
               <div className="form__input-field col" key={input.id}>
                 <input
-                  type={input.type}
+                  type={input.type || 'text'}
                   id={input.id}
                   name={input.name}
                   className="validate-input"
                   onChange={input.handler || actions.changeHandler}
                   required={input.required}
                   onBlur={formValidate}
+                  pattern={input.pattern ? input.pattern : '*'}
+                  minLength={input.min}
+                  maxLength={input.max}
                 />
 
                 <label htmlFor={input.id}> {input.label} </label>
+                <p className="form__error-message">
+                  {' '}
+                  {input.error
+                    ? input.error
+                    : `Incorrect value in the "${input.name}" field`}{' '}
+                </p>
               </div>
             );
           })
