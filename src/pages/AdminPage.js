@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
-import { setFileAndData } from '../api/set-data-product';
+
 import { AdminForm } from '../components/AdminForm';
 import { AllProductsList } from '../components/AllProductsList';
 
