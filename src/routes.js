@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { AboutPage } from './pages/AboutPage';
 import { AdminPage } from './pages/AdminPage';
@@ -44,7 +44,8 @@ export const useRoutes = () => {
         <RegisrtationPage />
       </Route>
       <Route path="/user">
-        <UserPage />
+        {' '}
+        <UserPage />{' '}
       </Route>
 
       <Route path="*">
