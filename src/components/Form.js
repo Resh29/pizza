@@ -1,16 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export const Form = ({ initialState }) => {
   const initInputs = initialState?.inputs || [];
+  const userInfo = initialState?.user || null;
   const Footer = initialState?.footer || null;
-  const actions = initialState?.actions || {
-    submitHandler() {
-      console.log('no handler');
-    },
-    changeHandler() {
-      console.log('no handler');
-    },
-  };
+
   const customInputs = initialState?.customInputs || [];
 
   const formValidate = (e) => {
@@ -22,7 +16,7 @@ export const Form = ({ initialState }) => {
       className="row form"
       onSubmit={(e) => {
         e.preventDefault();
-        actions.submitHandler();
+        initialState?.actions?.submitHandler();
       }}
     >
       {initialState
@@ -34,12 +28,13 @@ export const Form = ({ initialState }) => {
                   id={input.id}
                   name={input.name}
                   className="validate-input"
-                  onChange={input.handler || actions.changeHandler}
+                  onChange={initialState?.actions?.changeHandler}
                   required={input.required}
                   onBlur={formValidate}
                   pattern={input.pattern ? input.pattern : '*'}
                   minLength={input.min}
                   maxLength={input.max}
+                  defaultValue={userInfo ? userInfo[input.name] : ''}
                 />
 
                 <label htmlFor={input.id}> {input.label} </label>

@@ -1,8 +1,13 @@
 .tabs {
-  background-color: bisque;
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 5px;
+  margin: 0.4rem;
+
   &__nav {
     height: 54px;
     display: flex;
+    border-bottom: 2px $orange solid;
   }
   &__btn {
     background-color: #fff;
@@ -19,5 +24,25 @@
   &__btn.active {
     background-color: transparentize($orange, 0.6);
     color: #fff;
+  }
+  &__content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 5px;
+  }
+}
+
+.user-info {
+  padding: 0;
+  margin: 0 2rem;
+  &__item {
+    color: $grey;
+    margin-top: 1rem;
+    padding: 0.4rem;
+    border-bottom: 1px $grey dashed;
+    list-style: none;
+    span {
+      text-transform: capitalize;
+    }
   }
 }

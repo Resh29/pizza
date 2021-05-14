@@ -10,10 +10,6 @@ export const UserPage = () => {
   const [info, setInfo] = useState(null);
   const [noUser, setNoUser] = useState(false);
   const getInfo = getSingle();
-  const tabs = [
-    { title: 'jopa', content: 'pisyoun' },
-    { title: 'pipi', content: 'kaka' },
-  ];
 
   useEffect(() => {
     if (user) {
@@ -34,10 +30,7 @@ export const UserPage = () => {
   }, [user]);
 
   return (
-    <section
-      className="user-page"
-      style={{ padding: '5rem', color: '#fff', minHeight: '100vh' }}
-    >
+    <section className="user-page" style={{ color: '#fff', minHeight: '100vh' }}>
       {user ? (
         <>
           {' '}

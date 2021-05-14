@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { CartContext } from '../context/CartContext';
+import { useMessage } from '../helpers/message';
 
 export const ProductsCart = () => {
   const [cartList, addToCart, remove, decrement] = useContext(CartContext);
   const [total, setTotal] = useState(0);
   const history = useHistory();
+  const message = useMessage();
 
   const getTotalSum = (arr) => {
     const result = arr.reduce((acc, cur) => {
@@ -16,6 +18,11 @@ export const ProductsCart = () => {
   useEffect(() => {
     setTotal(getTotalSum(cartList));
   }, [cartList]);
+
+  const clearCart = () => {
+    remove('', true);
+    message({ text: 'The cart has been cleared!', type: 'info' });
+  };
 
   return (
     <>
@@ -90,12 +97,18 @@ export const ProductsCart = () => {
                     </span>{' '}
                   </h2>
                   <div className="order-buttons">
-                    <button className="btn btn-green"> to order </button>
+                    <button
+                      className="btn btn-green"
+                      onClick={() => history.push('/order')}
+                    >
+                      {' '}
+                      to order{' '}
+                    </button>
                     <button className="btn btn-orange" onClick={() => history.goBack()}>
                       {' '}
                       continue shopping{' '}
                     </button>
-                    <button className="btn btn-red" onClick={() => remove('', true)}>
+                    <button className="btn btn-red" onClick={clearCart}>
                       {' '}
                       clear cart{' '}
                     </button>

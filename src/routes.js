@@ -12,6 +12,7 @@ import { RegisrtationPage } from './pages/RegistrationPage';
 import { SinglePage } from './pages/SinglePage';
 import { AuthContext } from './context/AuthContext';
 import { UserPage } from './pages/UserPage';
+import { OrderPage } from './pages/OrderPage';
 
 export const useRoutes = () => {
   const [user] = useContext(AuthContext);
@@ -46,6 +47,9 @@ export const useRoutes = () => {
       <Route path="/user">
         {' '}
         <UserPage />{' '}
+      </Route>
+      <Route path="/order">
+        <OrderPage />
       </Route>
 
       <Route path="*">

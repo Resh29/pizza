@@ -4,6 +4,7 @@ import { getSingle } from '../api/get-single';
 import { updateProduct } from '../api/update-product';
 import { Loader } from '../components/Loader';
 import { CartContext } from '../context/CartContext';
+import { useMessage } from '../helpers/message';
 
 export const SinglePage = () => {
   const location = useLocation();
@@ -14,6 +15,7 @@ export const SinglePage = () => {
   const history = useHistory();
   const update = updateProduct();
   const [cartList, addToCart] = useContext(CartContext);
+  const message = useMessage();
 
   const stylesOpen = {
     maxHeight: '1200px',
@@ -40,6 +42,11 @@ export const SinglePage = () => {
       behavior: 'smooth',
     });
   }, []);
+
+  const add = (product) => {
+    addToCart(product);
+    message({ text: 'Product added to cart!', type: 'success' });
+  };
 
   return (
     <section className="single">
@@ -99,7 +106,7 @@ export const SinglePage = () => {
                 <button
                   className="btn btn-orange "
                   style={{ float: 'right' }}
-                  onClick={() => addToCart(product)}
+                  onClick={() => add(product)}
                 >
                   add to cart
                 </button>

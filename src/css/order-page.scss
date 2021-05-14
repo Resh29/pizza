@@ -1,0 +1,50 @@
+.order-page {
+  min-height: 100vh;
+  padding: 5rem 0;
+  &__wrapper {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 5px;
+  }
+  &__heading {
+    margin: 0;
+    text-align: center;
+    @include heading(3rem, $orange);
+  }
+  &__products {
+    padding: 1rem;
+    @include font-parameters(1.1rem, $grey, inherit, inherit, inherit);
+  }
+  &__products-list {
+    margin: 0;
+    padding: 0;
+    &__item {
+      list-style: none;
+      text-transform: capitalize;
+      display: flex;
+      margin-bottom: 1rem;
+      border-bottom: 1px $grey solid;
+      .count {
+        color: $green;
+        margin-left: auto;
+      }
+      .price {
+        color: $orange;
+        margin-left: 1rem;
+      }
+    }
+  }
+  &__form {
+    margin-top: 2rem;
+    &-info {
+      text-align: center;
+      @include heading(2rem, $green);
+    }
+  }
+  &__total {
+    color: #000;
+    .total-price {
+      color: $red;
+    }
+  }
+}

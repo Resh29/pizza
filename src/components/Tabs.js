@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { AuthState } from '../api/auth-state';
+import { removeData } from '../api/remove-data';
+import { AuthContext } from '../context/AuthContext';
 
 const Tab = ({ tab }) => {
   const [cur, setCur] = useState([]);
@@ -20,10 +24,15 @@ const Tab = ({ tab }) => {
           if (!t.length) {
             let entry = Object.keys(t);
             return (
-              <li className="user-info__item" key={i}>
-                {' '}
-                <span style={{ color: 'red' }}> {entry} :</span> {t[entry]}
-              </li>
+              (
+                <li className="user-info__item" key={i}>
+                  <span> {entry} :</span> {t[entry]}
+                </li>
+              ) || (
+                <li className="user-info__item" key={i}>
+                  Empty
+                </li>
+              )
             );
           } else if (t.length) {
             t.map((sub) => {
@@ -39,8 +48,17 @@ const Tab = ({ tab }) => {
 
 export const Tabs = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(0);
+  const history = useHistory();
+  const remove = removeData();
+  const [user] = useContext(AuthContext);
+  const auth = AuthState();
 
-  const opneTab = (e) => setActiveTab(+e.target.dataset.index);
+  const clearHistory = () => {
+    remove(`/users/${user.uid}/history`);
+    auth();
+  };
+
+  const openTab = (e) => setActiveTab(+e.target.dataset.index);
 
   return (
     <div className="tabs">
@@ -50,7 +68,7 @@ export const Tabs = ({ tabs }) => {
             <button
               className={`tabs__btn ${i === activeTab ? 'active' : ''}`}
               data-index={i}
-              onClick={opneTab}
+              onClick={openTab}
               key={i}
             >
               {' '}
@@ -61,6 +79,21 @@ export const Tabs = ({ tabs }) => {
       </div>
       <div className="tabs__content">
         {tabs[activeTab] && <Tab tab={tabs[activeTab]} />}
+      </div>
+      <div style={{ display: 'flex', margin: '1rem', justifyContent: 'space-around' }}>
+        <button className="btn btn-red" onClick={clearHistory}>
+          {' '}
+          Delete history{' '}
+        </button>
+        <button
+          className="btn btn-orange"
+          onClick={() => {
+            history.push('/user-info-change');
+          }}
+        >
+          {' '}
+          Change info{' '}
+        </button>
       </div>
     </div>
   );

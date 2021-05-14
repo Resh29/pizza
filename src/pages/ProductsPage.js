@@ -7,8 +7,8 @@ import { useDebounce } from '../helpers/debounce';
 import { useParams } from 'react-router';
 import { Loader } from '../components/Loader';
 import { ProductsSort } from '../components/ProductsSort';
-import { sortBy } from '../helpers/sort-by';
 import { CartContext } from '../context/CartContext';
+import { useMessage } from '../helpers/message';
 
 export const ProductsPage = () => {
   // Получаем контекст...
@@ -16,6 +16,8 @@ export const ProductsPage = () => {
   const [cartList, addToCart] = useContext(CartContext);
   // Список продуктов для отображения...
   const [currentProducts, setCurrentProducts] = useState([]);
+
+  const message = useMessage();
 
   //состояние пропсов, передаваемых в компонент сортировки
 
@@ -128,6 +130,7 @@ export const ProductsPage = () => {
   };
   function add(obj) {
     addToCart(obj);
+    message({ text: `${obj.name} added to cart!`, type: 'success' });
   }
   return (
     <main className="products-page">
@@ -140,7 +143,7 @@ export const ProductsPage = () => {
           <ProductsSort props={props} />{' '}
           {pagesControls.length ? (
             <div className="products-page__pagination row">
-              <button className="btn btn-orange" onClick={prev}>
+              <button className="btn btn-orange" disabled={page === 1} onClick={prev}>
                 {' '}
                 prev{' '}
               </button>
@@ -158,7 +161,11 @@ export const ProductsPage = () => {
                 </ul>
               ) : null}
 
-              <button className="btn btn-orange" onClick={next}>
+              <button
+                className="btn btn-orange"
+                disabled={page === pagesControls.length}
+                onClick={next}
+              >
                 {' '}
                 next{' '}
               </button>

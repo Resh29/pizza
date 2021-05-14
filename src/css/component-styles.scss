@@ -17,7 +17,7 @@ input.btn-orange {
   transition: all 0.3s;
   color: #fff;
   &:hover {
-    background-color: transparentize($orange, 0.2);
+    background-color: lighten($orange, 10%);
   }
 }
 a.btn-red,
@@ -27,7 +27,7 @@ input.btn-red {
   transition: all 0.3s;
   color: #fff;
   &:hover {
-    background-color: transparentize($red, 0.2);
+    background-color: lighten($red, 10%);
   }
 }
 a.btn-green,
@@ -37,7 +37,7 @@ input.btn-green {
   transition: all 0.3s;
   color: #fff;
   &:hover {
-    background-color: transparentize($green, 0.2);
+    background-color: lighten($green, 10%);
   }
 }
 
