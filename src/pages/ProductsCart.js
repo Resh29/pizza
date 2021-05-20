@@ -38,7 +38,7 @@ export const ProductsCart = () => {
                       <th scope="col">type</th>
                       <th scope="col">product</th>
                       <th scope="col">product price</th>
-                      <th scope="col">controls</th>
+                      <th scope="col"> add or delete</th>
                     </tr>
                   </thead>
 
@@ -92,9 +92,8 @@ export const ProductsCart = () => {
                 <div className="products-cart__order">
                   <h2 style={{ textAlign: 'center', color: '#bbb' }}>
                     {' '}
-                    Total price: <span style={{ color: 'firebrick' }}>
-                      {total} $
-                    </span>{' '}
+                    Total price:{' '}
+                    <span style={{ color: 'firebrick' }}>{total}&nbsp;$</span>{' '}
                   </h2>
                   <div className="order-buttons">
                     <button

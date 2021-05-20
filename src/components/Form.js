@@ -4,6 +4,7 @@ export const Form = ({ initialState }) => {
   const initInputs = initialState?.inputs || [];
   const userInfo = initialState?.user || null;
   const Footer = initialState?.footer || null;
+  const { changeHandler, submitHandler } = initialState.actions;
 
   const customInputs = initialState?.customInputs || [];
 
@@ -16,7 +17,10 @@ export const Form = ({ initialState }) => {
       className="row form"
       onSubmit={(e) => {
         e.preventDefault();
-        initialState?.actions?.submitHandler();
+        if (submitHandler) {
+          submitHandler();
+        }
+        e.target.reset();
       }}
     >
       {initialState
@@ -28,7 +32,7 @@ export const Form = ({ initialState }) => {
                   id={input.id}
                   name={input.name}
                   className="validate-input"
-                  onChange={initialState?.actions?.changeHandler}
+                  onChange={changeHandler ? changeHandler : null}
                   required={input.required}
                   onBlur={formValidate}
                   pattern={input.pattern ? input.pattern : '*'}

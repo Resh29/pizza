@@ -20,27 +20,37 @@ const Tab = ({ tab }) => {
   return (
     <div className="tab">
       <ul className="user-info">
-        {cur.map((t, i) => {
-          if (!t.length) {
-            let entry = Object.keys(t);
-            return (
-              (
+        {cur.length
+          ? cur.map((tab, i) => {
+              const entry = Object.keys(tab);
+              return (
                 <li className="user-info__item" key={i}>
-                  <span> {entry} :</span> {t[entry]}
+                  {tab[entry].date ? (
+                    <ul>
+                      {new Date(tab[entry].date).toLocaleDateString()}
+                      {tab[entry].order.map((order, i) => {
+                        return (
+                          <li key={i}>
+                            {' '}
+                            Product name: {order.name} Price: {order.price} Count:{' '}
+                            {order.count}{' '}
+                          </li>
+                        );
+                      })}
+                      <li>
+                        {' '}
+                        <span> Status: </span> {tab[entry].status}{' '}
+                      </li>
+                    </ul>
+                  ) : (
+                    <span>
+                      {entry} : {tab[entry]}{' '}
+                    </span>
+                  )}
                 </li>
-              ) || (
-                <li className="user-info__item" key={i}>
-                  Empty
-                </li>
-              )
-            );
-          } else if (t.length) {
-            t.map((sub) => {
-              let entry = Object.keys(sub);
-              return <p> {sub[entry]} </p>;
-            });
-          }
-        })}
+              );
+            })
+          : null}
       </ul>
     </div>
   );

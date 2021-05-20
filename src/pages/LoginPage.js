@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useAuth } from '../api/auth';
 import { Form } from '../components/Form';
+import { Loader } from '../components/Loader';
 
 export const LoginPage = () => {
   const history = useHistory();
   const [user, setUser] = useState({});
   const auth = useAuth();
+  const [loading, setLoading] = useState(false);
   const changeHandler = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -50,7 +52,9 @@ export const LoginPage = () => {
     footer,
     actions: {
       async submitHandler() {
+        setLoading(true);
         await auth('login', user);
+        setLoading(false);
       },
       changeHandler,
     },
@@ -63,7 +67,7 @@ export const LoginPage = () => {
         <div className="login-page__form-container">
           {' '}
           <div className="row">
-            <Form initialState={initialState} />
+            {loading ? <Loader /> : <Form initialState={initialState} />}
           </div>
         </div>
       </div>

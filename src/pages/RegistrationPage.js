@@ -91,7 +91,7 @@ export const RegisrtationPage = () => {
   };
 
   return (
-    <section className="regisrtation-page" style={{ padding: '5rem' }}>
+    <section className="regisrtation-page">
       <div className="container">
         <div className="row">
           <Form initialState={initialState} />

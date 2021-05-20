@@ -1,9 +1,10 @@
 .order-page {
   min-height: 100vh;
-  padding: 5rem 0;
+  padding: 8rem 16px;
+  background: #000 url('../img/wood-1759566_1920.jpg') center / cover no-repeat;
   &__wrapper {
     background-color: #fff;
-    padding: 2rem;
+    padding: 2rem 0;
     border-radius: 5px;
   }
   &__heading {
@@ -13,6 +14,11 @@
   }
   &__products {
     padding: 1rem;
+    max-width: 70%;
+    margin: auto;
+    @media (max-width: 576px) {
+      max-width: 100%;
+    }
     @include font-parameters(1.1rem, $grey, inherit, inherit, inherit);
   }
   &__products-list {

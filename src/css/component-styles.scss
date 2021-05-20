@@ -6,6 +6,7 @@
   background-color: initial;
   cursor: pointer;
   border-radius: 5px;
+  text-transform: uppercase;
   &:disabled {
     background-color: silver !important;
   }
@@ -46,7 +47,7 @@ input.btn-green {
   position: relative;
   background-color: bisque;
   &::after {
-    content: 'Look below!';
+    content: 'Bon Appetit!';
     font-size: 24px;
     color: $orange;
     font-family: 'Italiana', serif;

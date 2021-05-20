@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import { AboutPage } from './pages/AboutPage';
 import { AdminPage } from './pages/AdminPage';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
@@ -10,21 +9,17 @@ import { ProductsCart } from './pages/ProductsCart';
 import { ProductsPage } from './pages/ProductsPage';
 import { RegisrtationPage } from './pages/RegistrationPage';
 import { SinglePage } from './pages/SinglePage';
-import { AuthContext } from './context/AuthContext';
 import { UserPage } from './pages/UserPage';
 import { OrderPage } from './pages/OrderPage';
+import { ThankYouPage } from './pages/ThankYouPage';
 
 export const useRoutes = () => {
-  const [user] = useContext(AuthContext);
-
   return (
     <Switch>
       <Route path="/products/:slug/:id" exact>
         <SinglePage />
       </Route>
-      <Route path="/a">
-        <AboutPage />
-      </Route>
+
       <Route path="/" exact>
         <HomePage />
       </Route>
@@ -50,6 +45,9 @@ export const useRoutes = () => {
       </Route>
       <Route path="/order">
         <OrderPage />
+      </Route>
+      <Route path="/thank-you">
+        <ThankYouPage />
       </Route>
 
       <Route path="*">
