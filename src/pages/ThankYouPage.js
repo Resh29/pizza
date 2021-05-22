@@ -1,10 +1,16 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 
 export const ThankYouPage = () => {
   const [user] = useContext(AuthContext);
   const history = useHistory();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  });
   return (
     <section className="thank-you-page">
       <div className="container">

@@ -101,7 +101,10 @@ export const ProductsPage = () => {
 
   useEffect(() => {
     pagination();
-  }, [products, page, perPage]);
+  }, [page]);
+  useEffect(() => {
+    pagination();
+  }, [products]);
 
   // Вешаем обработчик ресайза
 
@@ -113,8 +116,8 @@ export const ProductsPage = () => {
 
   const pagination = () => {
     let chunk = page * perPage - perPage;
-    chunk > 0 ? chunk-- : (chunk = chunk);
-    setCurrentProducts(products?.slice(chunk, perPage));
+    setCurrentProducts(products?.slice(chunk, perPage + chunk));
+    console.log('render');
   };
 
   const prev = () => {
@@ -132,6 +135,9 @@ export const ProductsPage = () => {
     addToCart(obj);
     message({ text: `${obj.name} added to cart!`, type: 'success' });
   }
+  const sorting = () => {
+    setPage(1);
+  };
   return (
     <main className="products-page">
       <section className={`products-page__banner ${params.slug}`}>
@@ -140,7 +146,7 @@ export const ProductsPage = () => {
       <div className="divider"></div>
       <section className="products-page__wrapper">
         <div className="container">
-          <ProductsSort props={props} />{' '}
+          <ProductsSort props={props} sorting={sorting} />{' '}
           {pagesControls.length ? (
             <div className="products-page__pagination row">
               <button className="btn btn-orange" disabled={page === 1} onClick={prev}>

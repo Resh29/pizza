@@ -5,12 +5,12 @@ function sortBy() {
     },
     'high-to-low': (arr, params) => {
       return arr.sort((a, b) => {
-        return +b[params] - +a[params];
+        return b[params] - a[params];
       });
     },
   };
 
-  return (arr, params = 'views', inCase = 'high-to-low') => {
+  return (arr, params = 'orders', inCase = 'high-to-low') => {
     const res = cases[inCase](arr, params);
 
     return res;

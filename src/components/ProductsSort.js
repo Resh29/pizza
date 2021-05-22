@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ProductsContext } from '../context/ProductsContext';
 import { sortBy } from '../helpers/sort-by';
 
-export const ProductsSort = ({ props }) => {
-  const initialState = ['views', 'high-to-low'];
+export const ProductsSort = ({ props, sorting }) => {
+  const initialState = ['orders', 'high-to-low'];
   const [products, setProducts] = useContext(ProductsContext);
   const [params, setParams] = useState(initialState);
   const sort = sortBy();
@@ -12,6 +12,7 @@ export const ProductsSort = ({ props }) => {
     const params = e.target.value.split(' ');
     setParams(params);
     setProducts((old) => sort([...old], params[0], params[1]));
+    sorting();
   };
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export const ProductsSort = ({ props }) => {
         id="products-sort"
         onChange={changeHandler}
       >
-        <option value="views high-to-low"> Most popular </option>
+        <option value="orders high-to-low"> Most popular </option>
         <option value="price low-to-high"> Price: low to high </option>
 
         <option value="price high-to-low"> Price: high to low </option>

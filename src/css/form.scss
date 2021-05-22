@@ -20,6 +20,12 @@
     }
 
     .validate-input {
+      &::placeholder {
+        color: transparent;
+      }
+      &:focus::placeholder {
+        color: inherit;
+      }
       &[type='file'] {
         visibility: hidden;
         height: 1px;

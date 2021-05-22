@@ -40,6 +40,7 @@ export const OrderForm = ({ initialState, formSubmit }) => {
           onChange={changeHandler}
           onBlur={inputValidate}
           value={state?.name || ''}
+          pattern="^[a-zA-Z-А-Яа-яЁё]+$"
           required
         />
 
@@ -54,6 +55,7 @@ export const OrderForm = ({ initialState, formSubmit }) => {
           id="last-name"
           onChange={changeHandler}
           onBlur={inputValidate}
+          pattern="^[a-zA-Z-А-Яа-яЁё]+$"
           value={state?.['last-name'] || ''}
           required
         />
@@ -82,9 +84,11 @@ export const OrderForm = ({ initialState, formSubmit }) => {
           type="tel"
           name="phone"
           id="phone"
+          pattern="\+(3|7|1)(7|8|9)\d{10}"
           onChange={changeHandler}
           onBlur={inputValidate}
           value={state?.phone || ''}
+          placeholder="+38 (xxx)-xx-xx-xxx"
           required
         />
 
@@ -97,9 +101,11 @@ export const OrderForm = ({ initialState, formSubmit }) => {
           type="email"
           name="email"
           id="email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           onChange={changeHandler}
           onBlur={inputValidate}
           value={state?.email || ''}
+          placeholder="example@gmail.com"
           required
         />
 

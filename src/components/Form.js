@@ -38,6 +38,7 @@ export const Form = ({ initialState }) => {
                   pattern={input.pattern ? input.pattern : '*'}
                   minLength={input.min}
                   maxLength={input.max}
+                  autoComplete="new-password"
                   defaultValue={userInfo ? userInfo[input.name] : ''}
                 />
 

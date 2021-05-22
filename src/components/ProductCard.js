@@ -11,7 +11,7 @@ export const ProductCard = ({ props }) => {
         <div className="product-card__header">
           <h5 className="card-heading">
             {' '}
-            {prop.name} {prop.views}{' '}
+            {prop.name} {prop.orders}{' '}
           </h5>
         </div>
 
