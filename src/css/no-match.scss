@@ -1,0 +1,16 @@
+.no-match {
+  min-height: 920px;
+  &__content {
+    color: $grey;
+    span {
+      color: $red;
+    }
+    text-align: center;
+    padding-top: 10%;
+    font-size: 2rem;
+  }
+  &__sad-face {
+    min-height: 560px;
+    background: url('../img/sad-face-2691.svg') center no-repeat;
+  }
+}

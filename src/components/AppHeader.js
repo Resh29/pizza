@@ -41,12 +41,7 @@ export const AppHeader = () => {
           <div></div>
         </button>
         <ul className={openState ? 'navbar__nav open' : 'navbar__nav'}>
-          {/* <li className="navbar__item">
-            <NavLink to="/" className="navbar__link" exact>
-              {' '}
-              Home{' '}
-            </NavLink>
-          </li> */}
+      
 
           <li className="navbar__item">
             <NavLink to="/products/pizza" className="navbar__link" exact>

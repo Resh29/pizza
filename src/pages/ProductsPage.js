@@ -4,7 +4,7 @@ import { getData } from '../api/get-data';
 import { ProductCard } from '../components/ProductCard';
 import { useWindowSize } from '../helpers/resize';
 import { useDebounce } from '../helpers/debounce';
-import { useParams } from 'react-router';
+import { Redirect, useHistory, useParams } from 'react-router';
 import { Loader } from '../components/Loader';
 import { ProductsSort } from '../components/ProductsSort';
 import { CartContext } from '../context/CartContext';
@@ -40,6 +40,7 @@ export const ProductsPage = () => {
   const getProducts = getData();
 
   const params = useParams();
+  const history = useHistory();
 
   //Отслеживаем изменение размера окна. Если осуществляется переход от меньшего к большему - обнуляем perPage
 
@@ -69,12 +70,13 @@ export const ProductsPage = () => {
   useEffect(() => {
     async function get() {
       try {
-        const result =
-          (await getProducts('/products/' + params.slug).catch((e) =>
-            console.error(e)
-          )) || [];
+        const result = await getProducts('/products/' + params.slug);
+        if (!result) {
+          message({ text: 'Lost connection, or page not found', type: 'error' });
+          history.push('/404');
+        }
         setProps(normalize(result));
-
+        pagination();
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -101,10 +103,7 @@ export const ProductsPage = () => {
 
   useEffect(() => {
     pagination();
-  }, [page]);
-  useEffect(() => {
-    pagination();
-  }, [products]);
+  }, [page, products, perPage]);
 
   // Вешаем обработчик ресайза
 
@@ -117,7 +116,7 @@ export const ProductsPage = () => {
   const pagination = () => {
     let chunk = page * perPage - perPage;
     setCurrentProducts(products?.slice(chunk, perPage + chunk));
-    console.log('render');
+    console.log(currentProducts);
   };
 
   const prev = () => {
