@@ -43,6 +43,7 @@
         list-style-image: url('../img/pizza-slice-svgrepo-com.svg');
         color: $grey;
         margin-left: 2rem;
+        text-transform: capitalize;
         &::marker {
           font-size: 2rem;
         }

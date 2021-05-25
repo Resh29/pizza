@@ -1,10 +1,45 @@
 .footer {
   min-height: 240px;
   background-color: rgb(24, 23, 23);
-  width: 100%;
 
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 1em;
+  }
+  &__info {
+    color: $grey;
+    margin: 0;
+    padding: 2rem;
+    &__item {
+      list-style: none;
+      margin-left: 1rem;
+      margin-bottom: 0.4rem;
+      text-transform: capitalize;
+      font-size: 1.2rem;
+      font-weight: 500;
+      span {
+        text-transform: none;
+      }
+
+      a {
+        cursor: pointer;
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      & a:hover {
+        color: #fff;
+      }
+    }
+  }
   &__divider {
     height: 45px;
     background-color: $orange;
+  }
+  &__text {
+    color: $grey;
+    opacity: 0.3;
+    text-align: center;
   }
 }

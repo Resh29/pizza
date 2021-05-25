@@ -24,7 +24,7 @@ export const AdminForm = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     const _id = Date.now();
-    setDataToStorage({ ...data, _id });
+    setDataToStorage({ ...data, _id, orders: 0 });
     resetForm();
   };
   const setIngredients = (e) => {

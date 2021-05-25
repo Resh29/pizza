@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { CartContext } from '../context/CartContext';
+import { useMessage } from '../helpers/message';
 
 export const ProductsCart = () => {
   const [cartList, addToCart, remove, decrement] = useContext(CartContext);
   const [total, setTotal] = useState(0);
   const history = useHistory();
+  const message = useMessage();
 
   const getTotalSum = (arr) => {
     const result = arr.reduce((acc, cur) => {
@@ -17,21 +19,26 @@ export const ProductsCart = () => {
     setTotal(getTotalSum(cartList));
   }, [cartList]);
 
+  const clearCart = () => {
+    remove('', true);
+    message({ text: 'The cart has been cleared!', type: 'info' });
+  };
+
   return (
     <>
-      <section className="products-cart" style={{ height: '100vh', padding: '2rem' }}>
+      <section className="products-cart" style={{ minHeight: '100vh', padding: '2rem' }}>
         <div className="container">
           <div className="products-cart__content">
             {cartList.length ? (
               <>
-                <table className="products-cart__table">
+                <table className="table">
                   <caption> products cart</caption>
                   <thead>
                     <tr>
                       <th scope="col">type</th>
                       <th scope="col">product</th>
                       <th scope="col">product price</th>
-                      <th scope="col">controls</th>
+                      <th scope="col"> add or delete</th>
                     </tr>
                   </thead>
 
@@ -53,7 +60,7 @@ export const ProductsCart = () => {
                                 {product.name}{' '}
                               </td>
                               <td data-label="price"> {product.price} </td>
-                              <td data-label="controls">
+                              <td data-label="add or delete">
                                 <button
                                   className="btn"
                                   disabled={product.count <= 1}
@@ -85,17 +92,22 @@ export const ProductsCart = () => {
                 <div className="products-cart__order">
                   <h2 style={{ textAlign: 'center', color: '#bbb' }}>
                     {' '}
-                    Total price: <span style={{ color: 'firebrick' }}>
-                      {total} $
-                    </span>{' '}
+                    Total price:{' '}
+                    <span style={{ color: 'firebrick' }}>{total}&nbsp;$</span>{' '}
                   </h2>
                   <div className="order-buttons">
-                    <button className="btn btn-green"> to order </button>
+                    <button
+                      className="btn btn-green"
+                      onClick={() => history.push('/order')}
+                    >
+                      {' '}
+                      to order{' '}
+                    </button>
                     <button className="btn btn-orange" onClick={() => history.goBack()}>
                       {' '}
                       continue shopping{' '}
                     </button>
-                    <button className="btn btn-red" onClick={() => remove('', true)}>
+                    <button className="btn btn-red" onClick={clearCart}>
                       {' '}
                       clear cart{' '}
                     </button>

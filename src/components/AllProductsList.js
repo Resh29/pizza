@@ -36,7 +36,7 @@ export const AllProductsList = () => {
   };
 
   const productRemove = (product) => {
-    remove(`products/${product._id}`);
+    remove(`products/${product.category}/${product._id}`);
     setProducts((v) => v.filter((el) => el._id !== product._id));
   };
   return (
@@ -51,10 +51,14 @@ export const AllProductsList = () => {
                     <h4>{arr[0].category}</h4>
                     {arr.map((product) => {
                       return (
-                        <li className="list-item" key={product._id}>
+                        <li
+                          className="list-item"
+                          key={product._id}
+                          style={{ color: '#ccc' }}
+                        >
                           {' '}
                           {product.name} <br />
-                          Article: {product._id}
+                          Article: {product._id} {product.views}
                           <button
                             className="btn btn-red"
                             onClick={() => productRemove(product)}

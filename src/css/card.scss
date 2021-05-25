@@ -1,5 +1,5 @@
 .product-card {
-  width: 90%;
+  max-width: 430px;
   margin: 15px auto;
   position: relative;
   cursor: pointer;
@@ -32,6 +32,8 @@
     min-height: 264px;
     display: flex;
     .img {
+      max-width: 250px;
+      max-height: 250px;
       margin: auto auto;
       transform: translateY(50px);
       transition: all 0.5s;

@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
+
 export const CartContext = createContext([[], () => {}]);
 
 export const CartContextProvider = ({ children }) => {
@@ -16,7 +17,7 @@ export const CartContextProvider = ({ children }) => {
     localStorage.setItem('pizza-cart-list', JSON.stringify(cartList));
   }, [cartList]);
 
-  function addToCart(product) {
+  const addToCart = (product) => {
     if (cartList.find((el) => el._id === product._id)) {
       const current = cartList.map((el) => {
         if (el._id === product._id) {
@@ -31,7 +32,7 @@ export const CartContextProvider = ({ children }) => {
       product.count = 1;
       setCartList((v) => [...v, product]);
     }
-  }
+  };
 
   function removeFromCart(id, clear = false) {
     if (clear) {

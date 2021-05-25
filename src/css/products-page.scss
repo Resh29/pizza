@@ -35,6 +35,7 @@
   }
   &__pagination {
     justify-content: center;
+    margin: 2rem auto;
     @media (max-width: 575px) {
       display: none;
     }

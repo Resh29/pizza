@@ -6,6 +6,7 @@
   background-color: initial;
   cursor: pointer;
   border-radius: 5px;
+  text-transform: uppercase;
   &:disabled {
     background-color: silver !important;
   }
@@ -17,7 +18,7 @@ input.btn-orange {
   transition: all 0.3s;
   color: #fff;
   &:hover {
-    background-color: transparentize($orange, 0.2);
+    background-color: lighten($orange, 10%);
   }
 }
 a.btn-red,
@@ -27,7 +28,7 @@ input.btn-red {
   transition: all 0.3s;
   color: #fff;
   &:hover {
-    background-color: transparentize($red, 0.2);
+    background-color: lighten($red, 10%);
   }
 }
 a.btn-green,
@@ -37,7 +38,7 @@ input.btn-green {
   transition: all 0.3s;
   color: #fff;
   &:hover {
-    background-color: transparentize($green, 0.2);
+    background-color: lighten($green, 10%);
   }
 }
 
@@ -46,7 +47,7 @@ input.btn-green {
   position: relative;
   background-color: bisque;
   &::after {
-    content: 'Look below!';
+    content: 'Bon Appetit!';
     font-size: 24px;
     color: $orange;
     font-family: 'Italiana', serif;
@@ -61,4 +62,11 @@ input.btn-green {
     border-top: 3px rgb(121, 121, 121) dashed;
     border-bottom: 3px rgb(121, 121, 121) dashed;
   }
+}
+
+.section {
+  min-height: 720px;
+  padding-top: 10%;
+  background: #000 url('../img/wood-1759566_1920.jpg') center / cover no-repeat;
+  background-attachment: fixed;
 }

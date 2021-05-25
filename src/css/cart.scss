@@ -1,0 +1,23 @@
+.products-cart {
+  min-height: 100vh;
+  background: url('../img/wood-1759566_1920.jpg');
+  background-attachment: fixed;
+  &__content {
+    padding: 2rem;
+    margin-top: 10%;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  &__order {
+    .order-buttons {
+      margin: 1rem auto;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  h4 {
+    text-align: center;
+    margin-top: 6rem;
+    @include text-bold(2rem, $grey);
+  }
+}

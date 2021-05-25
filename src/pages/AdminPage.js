@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -7,25 +7,36 @@ import { AllProductsList } from '../components/AllProductsList';
 
 export const AdminPage = () => {
   const { path, url } = useRouteMatch();
+  const [activeTab, setActiveTab] = useState(1);
+  const openTab = (e) => setActiveTab(+e.target.dataset.index);
 
   return (
-    <div className="admin-page">
-      <ul>
-        <li>
-          <Link to={`${url}/add`}> Add product </Link>
-        </li>
-        <li>
-          <Link to={`${url}/all`}> All products </Link>
-        </li>
-      </ul>
-      <Switch>
-        <Route path={`${path}/add`} exact>
-          <AdminForm />
-        </Route>
-        <Route path={`${path}/all`}>
-          <AllProductsList />
-        </Route>
-      </Switch>
+    <div className="admin-page section">
+      <div className="container">
+        <div className="tabs">
+          <div className="tabs__nav">
+            <button
+              className={`tabs__btn ${1 === activeTab ? 'active' : ''}`}
+              data-index={1}
+              onClick={openTab}
+            >
+              Add product
+            </button>{' '}
+            <button
+              className={`tabs__btn ${2 === activeTab ? 'active' : ''}`}
+              data-index={2}
+              onClick={openTab}
+            >
+              Products
+            </button>
+          </div>
+
+          <div className="tabs__content">
+            {(activeTab === 1 && <AdminForm />) ||
+              (activeTab === 2 && <AllProductsList />)}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

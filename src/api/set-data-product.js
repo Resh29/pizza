@@ -5,9 +5,10 @@ export const setFileAndData = () => {
   const db = firebase.database();
 
   return async (data) => {
-    const ref = dsr.ref().child(`images/${data.fileName}`);
+    const _ = Math.floor(Math.random() * 50);
+    const ref = dsr.ref().child(`images/${_}${data.fileName}`);
     await ref.put(data.file).then((m) => console.log('Uploading complete!'));
-    const imageRef = await dsr.ref(`images/${data.fileName}`).getDownloadURL();
+    const imageRef = await dsr.ref(`images/${_}${data.fileName}`).getDownloadURL();
     const currentData = {
       ...data,
       image: imageRef,

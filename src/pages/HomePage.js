@@ -5,6 +5,7 @@ import { ProductCard } from '../components/ProductCard';
 import { ProductsSort } from '../components/ProductsSort';
 import { CartContext } from '../context/CartContext';
 import { ProductsContext } from '../context/ProductsContext';
+import { useMessage } from '../helpers/message';
 import { sortBy } from '../helpers/sort-by';
 
 export const HomePage = () => {
@@ -13,6 +14,12 @@ export const HomePage = () => {
   const fetchData = getData();
   const sort = sortBy();
   const [list, addToCart] = useContext(CartContext);
+  const message = useMessage();
+
+  const addProduct = (product) => {
+    addToCart(product);
+    message({ text: `${product.name} added to cart!`, type: 'success' });
+  };
 
   function normalize(arr) {
     return arr
@@ -63,9 +70,9 @@ export const HomePage = () => {
             <Loader />
           ) : (
             <div className="container">
-              <div className="row">
+              <div className="grid">
                 {products.map((el) => (
-                  <ProductCard key={el._id} props={[el, addToCart]} />
+                  <ProductCard key={el._id} props={[el, addProduct]} />
                 ))}
               </div>
             </div>

@@ -4,11 +4,11 @@ import { getData } from '../api/get-data';
 import { ProductCard } from '../components/ProductCard';
 import { useWindowSize } from '../helpers/resize';
 import { useDebounce } from '../helpers/debounce';
-import { useParams } from 'react-router';
+import { Redirect, useHistory, useParams } from 'react-router';
 import { Loader } from '../components/Loader';
 import { ProductsSort } from '../components/ProductsSort';
-import { sortBy } from '../helpers/sort-by';
 import { CartContext } from '../context/CartContext';
+import { useMessage } from '../helpers/message';
 
 export const ProductsPage = () => {
   // Получаем контекст...
@@ -16,6 +16,8 @@ export const ProductsPage = () => {
   const [cartList, addToCart] = useContext(CartContext);
   // Список продуктов для отображения...
   const [currentProducts, setCurrentProducts] = useState([]);
+
+  const message = useMessage();
 
   //состояние пропсов, передаваемых в компонент сортировки
 
@@ -38,6 +40,7 @@ export const ProductsPage = () => {
   const getProducts = getData();
 
   const params = useParams();
+  const history = useHistory();
 
   //Отслеживаем изменение размера окна. Если осуществляется переход от меньшего к большему - обнуляем perPage
 
@@ -67,12 +70,13 @@ export const ProductsPage = () => {
   useEffect(() => {
     async function get() {
       try {
-        const result =
-          (await getProducts('/products/' + params.slug).catch((e) =>
-            console.error(e)
-          )) || [];
+        const result = await getProducts('/products/' + params.slug);
+        if (!result) {
+          message({ text: 'Lost connection, or page not found', type: 'error' });
+          history.push('/404');
+        }
         setProps(normalize(result));
-
+        pagination();
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -99,7 +103,7 @@ export const ProductsPage = () => {
 
   useEffect(() => {
     pagination();
-  }, [products, page, perPage]);
+  }, [page, products, perPage]);
 
   // Вешаем обработчик ресайза
 
@@ -111,8 +115,8 @@ export const ProductsPage = () => {
 
   const pagination = () => {
     let chunk = page * perPage - perPage;
-    chunk > 0 ? chunk-- : (chunk = chunk);
-    setCurrentProducts(products?.slice(chunk, perPage));
+    setCurrentProducts(products?.slice(chunk, perPage + chunk));
+    console.log(currentProducts);
   };
 
   const prev = () => {
@@ -128,7 +132,11 @@ export const ProductsPage = () => {
   };
   function add(obj) {
     addToCart(obj);
+    message({ text: `${obj.name} added to cart!`, type: 'success' });
   }
+  const sorting = () => {
+    setPage(1);
+  };
   return (
     <main className="products-page">
       <section className={`products-page__banner ${params.slug}`}>
@@ -137,10 +145,10 @@ export const ProductsPage = () => {
       <div className="divider"></div>
       <section className="products-page__wrapper">
         <div className="container">
-          <ProductsSort props={props} />{' '}
+          <ProductsSort props={props} sorting={sorting} />{' '}
           {pagesControls.length ? (
             <div className="products-page__pagination row">
-              <button className="btn btn-orange" onClick={prev}>
+              <button className="btn btn-orange" disabled={page === 1} onClick={prev}>
                 {' '}
                 prev{' '}
               </button>
@@ -158,13 +166,17 @@ export const ProductsPage = () => {
                 </ul>
               ) : null}
 
-              <button className="btn btn-orange" onClick={next}>
+              <button
+                className="btn btn-orange"
+                disabled={page === pagesControls.length}
+                onClick={next}
+              >
                 {' '}
                 next{' '}
               </button>
             </div>
           ) : null}
-          <div className="row">
+          <div className="grid">
             {loading ? (
               <Loader />
             ) : (
