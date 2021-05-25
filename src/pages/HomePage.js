@@ -70,7 +70,7 @@ export const HomePage = () => {
             <Loader />
           ) : (
             <div className="container">
-              <div className="row">
+              <div className="grid">
                 {products.map((el) => (
                   <ProductCard key={el._id} props={[el, addProduct]} />
                 ))}

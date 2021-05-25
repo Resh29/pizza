@@ -101,7 +101,7 @@ export const SinglePage = () => {
                 <footer className="single__footer">
                   <p className="single__price">
                     Price:
-                    <span>{product.price} $</span>{' '}
+                    <span>{Number(product.price).toFixed(2)} $</span>{' '}
                   </p>
                   <div className="single__footer-btns" style={{ marginTop: '3rem' }}>
                     <button className="btn btn-red" onClick={() => history.goBack()}>

@@ -12,6 +12,7 @@ import { SinglePage } from './pages/SinglePage';
 import { UserPage } from './pages/UserPage';
 import { OrderPage } from './pages/OrderPage';
 import { ThankYouPage } from './pages/ThankYouPage';
+import { ChangeInfo } from './pages/ChangeInfoPage';
 
 export const useRoutes = () => {
   return (
@@ -48,6 +49,9 @@ export const useRoutes = () => {
       </Route>
       <Route path="/thank-you">
         <ThankYouPage />
+      </Route>
+      <Route path="/user-info-change">
+        <ChangeInfo />
       </Route>
 
       <Route path="*">

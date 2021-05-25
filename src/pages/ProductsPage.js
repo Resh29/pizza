@@ -176,7 +176,7 @@ export const ProductsPage = () => {
               </button>
             </div>
           ) : null}
-          <div className="row">
+          <div className="grid">
             {loading ? (
               <Loader />
             ) : (

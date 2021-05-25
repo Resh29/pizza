@@ -51,7 +51,11 @@ export const AllProductsList = () => {
                     <h4>{arr[0].category}</h4>
                     {arr.map((product) => {
                       return (
-                        <li className="list-item" key={product._id}>
+                        <li
+                          className="list-item"
+                          key={product._id}
+                          style={{ color: '#ccc' }}
+                        >
                           {' '}
                           {product.name} <br />
                           Article: {product._id} {product.views}

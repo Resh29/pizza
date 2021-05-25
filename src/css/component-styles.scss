@@ -63,3 +63,10 @@ input.btn-green {
     border-bottom: 3px rgb(121, 121, 121) dashed;
   }
 }
+
+.section {
+  min-height: 720px;
+  padding-top: 10%;
+  background: #000 url('../img/wood-1759566_1920.jpg') center / cover no-repeat;
+  background-attachment: fixed;
+}

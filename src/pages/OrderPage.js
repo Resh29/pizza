@@ -54,25 +54,34 @@ export const OrderPage = () => {
           <div className="order-page__wrapper">
             <h1 className="order-page__heading"> Order </h1>
             <div className="order-page__products" style={{ backgroundColor: '#fff' }}>
-              <ul className="order-page__products-list">
-                <h4> Products to order:</h4>
-                {cartList.map((product) => {
-                  return (
-                    <li className="order-page__products-list__item" key={product._id}>
-                      {' '}
-                      Name: {product.name}{' '}
-                      <span className="count"> Count: {product.count} </span>{' '}
-                      <span className="price"> Price: {product.price} $ </span>{' '}
-                    </li>
-                  );
-                })}
-              </ul>
+              <table className="table">
+                <caption> products to order </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">product name</th>
+                    <th scope="col">count</th>
+                    <th scope="col">price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartList.map((product) => {
+                    return (
+                      <tr>
+                        <td data-label="product name"> {product.name} </td>
+                        <td data-label="count"> {product.count} </td>
+                        <td data-label="price"> {product.price} $ </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+
               <p className="order-page__total">
                 Total price: <span className="total-price">{sum} $</span>{' '}
               </p>
             </div>
             <div className="order-page__form">
-              <h2 className="order-page__form-info"> Your information </h2>
+              <h2 className="order-page__form-info"> Order form </h2>
               {user ? (
                 <OrderForm initialState={user} formSubmit={submitForm} />
               ) : (

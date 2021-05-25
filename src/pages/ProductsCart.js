@@ -26,12 +26,12 @@ export const ProductsCart = () => {
 
   return (
     <>
-      <section className="products-cart" style={{ height: '100vh', padding: '2rem' }}>
+      <section className="products-cart" style={{ minHeight: '100vh', padding: '2rem' }}>
         <div className="container">
           <div className="products-cart__content">
             {cartList.length ? (
               <>
-                <table className="products-cart__table">
+                <table className="table">
                   <caption> products cart</caption>
                   <thead>
                     <tr>
@@ -60,7 +60,7 @@ export const ProductsCart = () => {
                                 {product.name}{' '}
                               </td>
                               <td data-label="price"> {product.price} </td>
-                              <td data-label="controls">
+                              <td data-label="add or delete">
                                 <button
                                   className="btn"
                                   disabled={product.count <= 1}

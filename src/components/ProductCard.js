@@ -6,7 +6,7 @@ export const ProductCard = ({ props }) => {
   const [prop, add] = props;
 
   return (
-    <div className="col col-l-3 col-m-2 ">
+    <div className="grid-item">
       <div className="product-card">
         <div className="product-card__header">
           <h5 className="card-heading">

@@ -26,13 +26,13 @@ export const UserPage = () => {
     } else {
       setTimeout(() => {
         setNoUser(true);
-      }, 3000);
+      }, 2000);
     }
     return () => setInfo(null);
   }, [user]);
 
   return (
-    <section className="user-page">
+    <section className="user-page section">
       {user ? (
         <>
           {' '}
