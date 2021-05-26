@@ -7,7 +7,7 @@ export const CartContextProvider = ({ children }) => {
 
   useEffect(() => {
     const items = localStorage.getItem('pizza-cart-list');
-    if (items.length) {
+    if (items?.length) {
       setCartList(JSON.parse(items));
     } else {
       return;
