@@ -66,7 +66,7 @@ export const OrderPage = () => {
                 <tbody>
                   {cartList.map((product) => {
                     return (
-                      <tr>
+                      <tr key={product._id}>
                         <td data-label="product name"> {product.name} </td>
                         <td data-label="count"> {product.count} </td>
                         <td data-label="price"> {product.price} $ </td>

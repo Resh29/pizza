@@ -74,8 +74,10 @@
       padding: 1rem;
       list-style: none;
       display: inline-block;
+
       &:hover a::after {
         transform: translateX(0);
+        width: 100%;
         opacity: 1;
       }
     }
@@ -87,13 +89,15 @@
       &::after {
         content: '';
         height: 4px;
-        width: 100%;
+
+        width: 0;
         position: relative;
         display: block;
         background-color: $orange;
         top: 10px;
         transform: translateX(-100%);
         opacity: 0;
+
         transition: all 0.3s ease;
       }
     }

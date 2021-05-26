@@ -64,6 +64,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: 1em;
+
   width: 100%;
 }
 .grid-item {
