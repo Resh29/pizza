@@ -13,8 +13,12 @@ import { UserPage } from './pages/UserPage';
 import { OrderPage } from './pages/OrderPage';
 import { ThankYouPage } from './pages/ThankYouPage';
 import { ChangeInfo } from './pages/ChangeInfoPage';
+import { AuthContext } from './context/AuthContext';
+import { Loader } from './components/Loader';
 
 export const useRoutes = () => {
+  const [user] = useContext(AuthContext);
+
   return (
     <Switch>
       <Route path="/products/:slug/:id" exact>
@@ -35,7 +39,7 @@ export const useRoutes = () => {
         <LoginPage />
       </Route>
       <Route path="/admin">
-        <AdminPage />
+        {user ? user?.isAdmin ? <AdminPage /> : <NoMatch /> : <Loader />}
       </Route>
       <Route path="/registration">
         <RegisrtationPage />

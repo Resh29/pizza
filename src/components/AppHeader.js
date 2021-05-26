@@ -28,7 +28,7 @@ export const AppHeader = () => {
           }}
         >
           {' '}
-          Hi Pizza{' '}
+          Pizza & Rolls{' '}
         </a>
         <button
           className={`navbar__toggler btn ${openState ? 'open' : ''}`}
@@ -41,8 +41,6 @@ export const AppHeader = () => {
           <div></div>
         </button>
         <ul className={openState ? 'navbar__nav open' : 'navbar__nav'}>
-      
-
           <li className="navbar__item">
             <NavLink to="/products/pizza" className="navbar__link" exact>
               {' '}
