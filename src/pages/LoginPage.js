@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useAuth } from '../api/auth';
 import { Form } from '../components/Form';
@@ -12,53 +12,24 @@ export const LoginPage = () => {
   const changeHandler = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  const footer = () => {
-    return (
-      <footer className="form__footer">
-        <input type="submit" value="submit" className="btn btn-green" />
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            history.push('/registration');
-          }}
-          className="btn"
-          style={{ textDecoration: 'none', textTransform: 'capitalize', color: 'grey' }}
-        >
-          {' '}
-          regisrtation{' '}
-        </a>
-      </footer>
-    );
+  const submitHandler = async () => {
+    setLoading(true);
+    try {
+      await auth('login', user);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
   };
 
-  const initialState = {
-    inputs: [
-      {
-        type: 'email',
-        name: 'email',
-        id: 'email',
-        required: true,
-        label: 'Email',
-      },
-      {
-        type: 'password',
-        name: 'password',
-        id: 'password',
-        required: true,
-        label: 'Password',
-      },
-    ],
-    footer,
-    actions: {
-      async submitHandler() {
-        setLoading(true);
-        await auth('login', user);
-        setLoading(false);
-      },
-      changeHandler,
-    },
+  const formValidate = (e) => {
+    e.target.classList.add('touched');
   };
+
+  useEffect(() => {
+    return () => setUser({});
+  }, []);
 
   return (
     <section className="login-page" style={{ paddingTop: '10%', minHeight: '100vh' }}>
@@ -67,7 +38,65 @@ export const LoginPage = () => {
         <div className="login-page__form-container">
           {' '}
           <div className="row">
-            {loading ? <Loader /> : <Form initialState={initialState} />}
+            {loading ? (
+              <Loader />
+            ) : (
+              <form
+                className="form row"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  submitHandler();
+                }}
+              >
+                <div className="form__input-field col">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="validate-input"
+                    onBlur={formValidate}
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    onChange={changeHandler}
+                    value={user.email || ''}
+                    required
+                  />
+
+                  <label htmlFor="Email"> Email </label>
+                  <p className="form__error-message"></p>
+                </div>
+                <div className="form__input-field col">
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    className="validate-input"
+                    onBlur={formValidate}
+                    minLength="6"
+                    maxLength="16"
+                    onChange={changeHandler}
+                    value={user.password || ''}
+                    required
+                  />
+
+                  <label htmlFor="password"> Password </label>
+                  <p className="form__error-message"></p>
+                </div>
+                <footer className="form__footer">
+                  <input type="submit" className="btn btn-green" value="Submit" />
+                  <a
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push('/registration');
+                    }}
+                  >
+                    {' '}
+                    Registration{' '}
+                  </a>
+                </footer>
+              </form>
+            )}
           </div>
         </div>
       </div>

@@ -116,7 +116,6 @@ export const ProductsPage = () => {
   const pagination = () => {
     let chunk = page * perPage - perPage;
     setCurrentProducts(products?.slice(chunk, perPage + chunk));
-    console.log(currentProducts);
   };
 
   const prev = () => {
@@ -139,8 +138,8 @@ export const ProductsPage = () => {
   };
   return (
     <main className="products-page">
-      <section className={`products-page__banner ${params.slug}`}>
-        <h1> {params.slug} </h1>
+      <section className={`products-page__banner ${params?.slug}`}>
+        <h1> {params?.slug} </h1>
       </section>
       <div className="divider"></div>
       <section className="products-page__wrapper">
