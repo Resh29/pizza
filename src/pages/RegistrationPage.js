@@ -1,100 +1,166 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useAuth } from '../api/auth';
-import { Form } from '../components/Form';
+
+import { Loader } from '../components/Loader';
 
 export const RegisrtationPage = () => {
   const history = useHistory();
   const [user, setUser] = useState({});
   const auth = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const changeHandler = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const Footer = () => {
-    return (
-      <footer className="form__footer">
-        <input type="submit" value="submit" className="btn btn-green" />
-        <a
-          className="btn btn-red"
-          onClick={(e) => {
-            e.preventDefault();
-            history.goBack();
-          }}
-        >
-          {' '}
-          back{' '}
-        </a>
-      </footer>
-    );
+  const formValidate = (e) => {
+    e.target.classList.add('touched');
+  };
+  const submitHandler = async () => {
+    setLoading(true);
+    try {
+      await auth('registration', user);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
   };
 
-  const initialState = {
-    inputs: [
-      {
-        type: 'text',
-        name: 'name',
-        id: 'name',
-        label: 'name',
-        required: true,
-        pattern: '^[a-zA-Z-А-Яа-яЁё]+$',
-        error: 'The name field must contain only letters.',
-      },
-      {
-        type: 'text',
-        name: 'last-name',
-        id: 'last-name',
-        label: 'last-name',
-        required: true,
-        pattern: '^[a-zA-Z-А-Яа-яЁё]+$',
-        error: 'The last name field must contain only letters.',
-      },
-      {
-        type: 'email',
-        name: 'email',
-        id: 'email',
-        label: 'email',
-        required: true,
-        pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$',
-      },
-      {
-        type: 'password',
-        name: 'password',
-        id: 'password',
-        label: 'password',
-        required: true,
-        // pattern: '(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{6,16}',
-        min: 6,
-
-        // error: `Must contain at least one  number and one uppercase and lowercase letter, and at least 6 or more characters`,
-      },
-      {
-        type: 'tel',
-        name: 'phone',
-        id: 'phone',
-        label: 'phone',
-        required: true,
-        pattern: '^[ 0-9]+$',
-        min: '10',
-        max: '16',
-      },
-      { type: 'text', name: 'address', id: 'address', label: 'address', required: false },
-    ],
-    footer: Footer,
-    actions: {
-      async submitHandler() {
-        await auth('registration', user);
-      },
-      changeHandler,
-    },
-  };
+  useEffect(() => {
+    return () => setUser({});
+  }, []);
 
   return (
     <section className="regisrtation-page">
       <div className="container">
         <div className="row">
-          <Form initialState={initialState} />
+          {loading ? (
+            <Loader />
+          ) : (
+            <form
+              className="form row"
+              onSubmit={(e) => {
+                e.preventDefault();
+                submitHandler();
+              }}
+            >
+              <div className="form__input-field col">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="validate-input"
+                  onBlur={formValidate}
+                  pattern="^[a-zA-Z-А-Яа-яЁё]+$"
+                  onChange={changeHandler}
+                  value={user.name || ''}
+                  required
+                />
+
+                <label htmlFor="name"> Name </label>
+                <p className="form__error-message"></p>
+              </div>
+              <div className="form__input-field col">
+                <input
+                  type="text"
+                  id="last-name"
+                  name="last-name"
+                  className="validate-input"
+                  onBlur={formValidate}
+                  pattern="^[a-zA-Z-А-Яа-яЁё]+$"
+                  onChange={changeHandler}
+                  value={user['last-name'] || ''}
+                  required
+                />
+
+                <label htmlFor="last-name"> Last-name </label>
+                <p className="form__error-message"></p>
+              </div>
+              <div className="form__input-field col">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="validate-input"
+                  onBlur={formValidate}
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                  onChange={changeHandler}
+                  value={user.email || ''}
+                  required
+                />
+
+                <label htmlFor="email"> Email </label>
+                <p className="form__error-message"></p>
+              </div>
+              <div className="form__input-field col">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="validate-input"
+                  onBlur={formValidate}
+                  minLength="6"
+                  maxLength="16"
+                  onChange={changeHandler}
+                  value={user.password || ''}
+                  required
+                />
+
+                <label htmlFor="password"> Password </label>
+                <p className="form__error-message"></p>
+              </div>
+
+              <div className="form__input-field col">
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  className="validate-input"
+                  onBlur={formValidate}
+                  onChange={changeHandler}
+                  value={user.address || ''}
+                  required
+                />
+
+                <label htmlFor="address"> Address </label>
+                <p className="form__error-message"></p>
+              </div>
+              <div className="form__input-field col">
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  className="validate-input"
+                  onBlur={formValidate}
+                  placeholder="+38 (xxx)-xx-xx-xxx"
+                  pattern="\+(3|7|1)(7|8|9)\d{10}"
+                  onChange={changeHandler}
+                  value={user.phone || ''}
+                  required
+                />
+
+                <label htmlFor="phone"> Phone </label>
+                <p className="form__error-message"></p>
+              </div>
+              <footer className="form__footer">
+                <input type="submit" className="btn btn-green" value="Submit" />
+                <a
+                  style={{ textDecoration: 'none' }}
+                  href="#"
+                  className="btn btn-orange"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    history.goBack();
+                  }}
+                >
+                  {' '}
+                  Back{' '}
+                </a>
+              </footer>
+            </form>
+          )}
         </div>
       </div>
     </section>
