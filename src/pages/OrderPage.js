@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { Form } from '../components/Form';
+
 import { AuthContext } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
-import { Loader } from '../components/Loader';
+
 import { setOrder } from '../api/set-order';
 import { useMessage } from '../helpers/message';
 import { OrderForm } from '../components/OrderForm';

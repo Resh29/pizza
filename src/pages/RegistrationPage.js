@@ -9,6 +9,7 @@ export const RegisrtationPage = () => {
   const [user, setUser] = useState({});
   const auth = useAuth();
   const [loading, setLoading] = useState(false);
+  const [passOpenState, setPassOpenState] = useState(false);
 
   const changeHandler = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -34,6 +35,7 @@ export const RegisrtationPage = () => {
 
   return (
     <section className="regisrtation-page">
+      <h1 className="regisrtation-page__heading heading"> Registration </h1>
       <div className="container">
         <div className="row">
           {loading ? (
@@ -60,7 +62,7 @@ export const RegisrtationPage = () => {
                 />
 
                 <label htmlFor="name"> Name </label>
-                <p className="form__error-message"></p>
+                <p className="form__error-message"> This field must not be empty </p>
               </div>
               <div className="form__input-field col">
                 <input
@@ -92,24 +94,33 @@ export const RegisrtationPage = () => {
                 />
 
                 <label htmlFor="email"> Email </label>
-                <p className="form__error-message"></p>
+                <p className="form__error-message">Incorrect email</p>
               </div>
               <div className="form__input-field col">
                 <input
-                  type="password"
+                  type={passOpenState ? 'text' : 'password'}
                   id="password"
                   name="password"
                   className="validate-input"
                   onBlur={formValidate}
-                  minLength="6"
-                  maxLength="16"
+                  pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,16}"
                   onChange={changeHandler}
                   value={user.password || ''}
                   required
                 />
 
                 <label htmlFor="password"> Password </label>
-                <p className="form__error-message"></p>
+                <input
+                  type="checkbox"
+                  className="password-open-check"
+                  id="password-check"
+                  onChange={() => setPassOpenState((v) => !v)}
+                />
+                <label htmlFor="password-check"> Show password </label>
+                <p className="form__error-message">
+                  {' '}
+                  Password must contain uppercase, lowercase letters and numbers{' '}
+                </p>
               </div>
 
               <div className="form__input-field col">
@@ -125,7 +136,7 @@ export const RegisrtationPage = () => {
                 />
 
                 <label htmlFor="address"> Address </label>
-                <p className="form__error-message"></p>
+                <p className="form__error-message">This field must not be empty</p>
               </div>
               <div className="form__input-field col">
                 <input
@@ -142,7 +153,9 @@ export const RegisrtationPage = () => {
                 />
 
                 <label htmlFor="phone"> Phone </label>
-                <p className="form__error-message"></p>
+                <p className="form__error-message">
+                  phone number must be specified in the format - +хх (xxx)-xx-xx-xxx
+                </p>
               </div>
               <footer className="form__footer">
                 <input type="submit" className="btn btn-green" value="Submit" />

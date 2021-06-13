@@ -105,6 +105,10 @@ export const ProductsPage = () => {
     pagination();
   }, [page, products, perPage]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [products]);
+
   // Вешаем обработчик ресайза
 
   useEffect(() => {

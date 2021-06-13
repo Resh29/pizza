@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useAuth } from '../api/auth';
-import { Form } from '../components/Form';
 import { Loader } from '../components/Loader';
 
 export const LoginPage = () => {
@@ -9,6 +8,7 @@ export const LoginPage = () => {
   const [user, setUser] = useState({});
   const auth = useAuth();
   const [loading, setLoading] = useState(false);
+  const [passOpenState, setPassOpenState] = useState(false);
   const changeHandler = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -66,7 +66,7 @@ export const LoginPage = () => {
                 </div>
                 <div className="form__input-field col">
                   <input
-                    type="password"
+                    type={passOpenState ? 'text' : 'password'}
                     id="password"
                     name="password"
                     className="validate-input"
@@ -79,6 +79,16 @@ export const LoginPage = () => {
                   />
 
                   <label htmlFor="password"> Password </label>
+                  <input
+                    type="checkbox"
+                    className="password-open-check"
+                    id="password-check"
+                    onChange={() => setPassOpenState((v) => !v)}
+                  />
+                  <label htmlFor="password-check">
+                    {' '}
+                    Show password <span></span>{' '}
+                  </label>
                   <p className="form__error-message"></p>
                 </div>
                 <footer className="form__footer">

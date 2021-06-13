@@ -45,7 +45,7 @@ export const OrderForm = ({ initialState, formSubmit }) => {
         />
 
         <label htmlFor="name"> Name </label>
-        <p className="form__error-message"></p>
+        <p className="form__error-message">This field must not be empty</p>
       </div>
       <div className="form__input-field col">
         <input
@@ -61,7 +61,7 @@ export const OrderForm = ({ initialState, formSubmit }) => {
         />
 
         <label htmlFor="last-name"> Last Name </label>
-        <p className="form__error-message"></p>
+        <p className="form__error-message">This field must not be empty</p>
       </div>
       <div className="form__input-field col">
         <input
@@ -76,7 +76,7 @@ export const OrderForm = ({ initialState, formSubmit }) => {
         />
 
         <label htmlFor="address"> Adress </label>
-        <p className="form__error-message"></p>
+        <p className="form__error-message">This field must not be empty</p>
       </div>
       <div className="form__input-field col">
         <input
@@ -93,7 +93,10 @@ export const OrderForm = ({ initialState, formSubmit }) => {
         />
 
         <label htmlFor="phone"> Phone number </label>
-        <p className="form__error-message"></p>
+        <p className="form__error-message">
+          {' '}
+          phone number must be specified in the format - +хх (xxx)-xx-xx-xxx
+        </p>
       </div>
       <div className="form__input-field col">
         <input
@@ -110,7 +113,7 @@ export const OrderForm = ({ initialState, formSubmit }) => {
         />
 
         <label htmlFor="email"> Email </label>
-        <p className="form__error-message"></p>
+        <p className="form__error-message">Incorrect email</p>
       </div>
       <footer className="form__footer">
         <input type="submit" value="submit" className="btn btn-green" />
