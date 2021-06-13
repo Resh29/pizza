@@ -2,4 +2,8 @@
   min-height: 720px;
   padding-top: 8rem;
   background: #000 url('../img/wood-1759566_1920.jpg') center / cover no-repeat;
+  &__heading {
+    text-align: center;
+    @include heading(2rem, #fff);
+  }
 }

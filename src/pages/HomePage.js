@@ -53,7 +53,7 @@ export const HomePage = () => {
       <div className="home-page__start-screen">
         <div className="home-page__heading">
           <h1 className="home-page__title">Pizza & Rolls</h1>
-          <p className="home-page__subtitle"> Best pizza, for best castomers </p>
+          <p className="home-page__subtitle">Best pizza, for best customers </p>
         </div>
       </div>
 
