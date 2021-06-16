@@ -7,10 +7,11 @@ import { CartContext } from '../context/CartContext';
 import { setOrder } from '../api/set-order';
 import { useMessage } from '../helpers/message';
 import { OrderForm } from '../components/OrderForm';
+import { Loader } from '../components/Loader';
 
 export const OrderPage = () => {
   const [user] = useContext(AuthContext);
-
+  const [loading, setLoading] = useState(false);
   const message = useMessage();
   const [cartList, setCartList, remove] = useContext(CartContext);
   const setOrderData = setOrder();
@@ -18,6 +19,7 @@ export const OrderPage = () => {
   const history = useHistory();
 
   const submitForm = async (data) => {
+    setLoading(true);
     try {
       const date = Date.now();
       const id = `${date + Math.floor(Math.random() * 10)}`;
@@ -33,6 +35,7 @@ export const OrderPage = () => {
       history.push('/thank-you');
     } catch (error) {
       message({ text: error.code, type: 'error' });
+      setLoading(false);
     }
   };
 
@@ -82,7 +85,9 @@ export const OrderPage = () => {
             </div>
             <div className="order-page__form">
               <h2 className="order-page__form-info"> Order form </h2>
-              {user ? (
+              {loading ? (
+                <Loader />
+              ) : user ? (
                 <OrderForm initialState={user} formSubmit={submitForm} />
               ) : (
                 <OrderForm initialState={null} formSubmit={submitForm} />

@@ -9,23 +9,25 @@ import { Loader } from '../components/Loader';
 import { ProductsSort } from '../components/ProductsSort';
 import { CartContext } from '../context/CartContext';
 import { useMessage } from '../helpers/message';
+import { PaginationContext } from '../context/PaginationContext';
+import { usePagination } from '../helpers/usePagination';
 
 export const ProductsPage = () => {
   // Получаем контекст...
   const [products, setProducts] = useContext(ProductsContext);
   const [cartList, addToCart] = useContext(CartContext);
-  // Список продуктов для отображения...
-  const [currentProducts, setCurrentProducts] = useState([]);
+
+  //current, chunk, idx, setCurrent, setChunk, setIdx
+  const [current, chunk, idx, setCurrent, setChunk, setIdx] =
+    useContext(PaginationContext);
+  const pag = usePagination();
 
   const message = useMessage();
 
   //состояние пропсов, передаваемых в компонент сортировки
 
   const [props, setProps] = useState([]);
-  // Контроллеры переключения пагинации
-  const [pagesControls, setpagesControls] = useState([]);
-  // Состояние страниц
-  const [page, setPage] = useState(1);
+
   // Количество на странице...
   const [perPage, setPerPage] = useState(6);
 
@@ -46,11 +48,11 @@ export const ProductsPage = () => {
 
   const resizeWatcher = debounce(() => {
     if (x < 565) {
-      setPage(1);
+      setIdx(0);
       setMin(true);
     } else {
       if (x > 565 && min) {
-        setPerPage(6);
+        pag('pagination/idx', 6, 0);
         setMin(false);
       } else {
         return;
@@ -76,7 +78,6 @@ export const ProductsPage = () => {
           history.push('/404');
         }
         setProps(normalize(result));
-        pagination();
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -89,24 +90,8 @@ export const ProductsPage = () => {
     };
   }, [params]);
 
-  // Получаем количество страниц, формируем
-  // массив для коректоного отображения рендера наших контроллеров пагинации...
-  // и подписываемся на изменение списка продуктов
   useEffect(() => {
-    if (products.length)
-      setpagesControls(new Array(Math.ceil(products.length / perPage)).fill(''));
-
-    return () => setpagesControls([]);
-  }, [products, params]);
-
-  // Вызов функции пагинации, следим за изменением стейта...
-
-  useEffect(() => {
-    pagination();
-  }, [page, products, perPage]);
-
-  useEffect(() => {
-    setPage(1);
+    setIdx(0);
   }, [products]);
 
   // Вешаем обработчик ресайза
@@ -115,30 +100,12 @@ export const ProductsPage = () => {
     resizeWatcher();
   }, [x]);
 
-  // Пагинация --------------//
-
-  const pagination = () => {
-    let chunk = page * perPage - perPage;
-    setCurrentProducts(products?.slice(chunk, perPage + chunk));
-  };
-
-  const prev = () => {
-    if (page > 1) {
-      setPage((v) => (v -= 1));
-    }
-  };
-
-  const next = () => {
-    if (pagesControls.length > page) {
-      setPage((v) => (v += 1));
-    }
-  };
   function add(obj) {
     addToCart(obj);
     message({ text: `${obj.name} added to cart!`, type: 'success' });
   }
   const sorting = () => {
-    setPage(1);
+    setIdx(0);
   };
   return (
     <main className="products-page">
@@ -149,19 +116,23 @@ export const ProductsPage = () => {
       <section className="products-page__wrapper">
         <div className="container">
           <ProductsSort props={props} sorting={sorting} />{' '}
-          {pagesControls.length ? (
+          {current.length ? (
             <div className="products-page__pagination row">
-              <button className="btn btn-orange" disabled={page === 1} onClick={prev}>
+              <button
+                className="btn btn-orange"
+                disabled={idx === 0}
+                onClick={() => pag('pagination/prev', 6)}
+              >
                 {' '}
                 prev{' '}
               </button>
-              {pagesControls.length ? (
+              {current.length ? (
                 <ul className="products-page__controls-box">
-                  {pagesControls.map((el, i) => (
+                  {current.map((el, i) => (
                     <li
-                      className={i + 1 === page ? 'controls active' : 'controls'}
+                      className={i === idx ? 'controls active' : 'controls'}
                       key={i}
-                      onClick={() => setPage(i + 1)}
+                      onClick={() => setIdx(i)}
                     >
                       {i + 1}
                     </li>
@@ -171,8 +142,8 @@ export const ProductsPage = () => {
 
               <button
                 className="btn btn-orange"
-                disabled={page === pagesControls.length}
-                onClick={next}
+                disabled={idx === current.length - 1}
+                onClick={() => pag('pagination/next', 6)}
               >
                 {' '}
                 next{' '}
@@ -184,8 +155,8 @@ export const ProductsPage = () => {
               <Loader />
             ) : (
               <>
-                {currentProducts.length ? (
-                  currentProducts.map((el) => {
+                {chunk.length ? (
+                  chunk.map((el) => {
                     return <ProductCard props={[el, add]} key={el._id} />;
                   })
                 ) : (
