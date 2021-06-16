@@ -11,6 +11,7 @@ import { ProductsContextProvider } from './context/ProductsContext';
 import { CartContextProvider } from './context/CartContext';
 import { AuthContextProvider } from './context/AuthContext';
 import { MessageContextProvider } from './context/MessageContext';
+import { PaginationProvider } from './context/PaginationContext';
 
 //firebase initialization
 firebase.initializeApp(firebaseConfig);
@@ -22,8 +23,10 @@ ReactDOM.render(
       <CartContextProvider>
         <AuthContextProvider>
           <MessageContextProvider>
-            {' '}
-            <App />
+            <PaginationProvider>
+              {' '}
+              <App />
+            </PaginationProvider>
           </MessageContextProvider>{' '}
         </AuthContextProvider>
       </CartContextProvider>

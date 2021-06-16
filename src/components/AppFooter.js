@@ -1,6 +1,12 @@
 import { NavLink } from 'react-router-dom';
 
 export const AppFooter = () => {
+  const slideAction = (e) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
   return (
     <footer className="footer">
       <div className="footer__divider"></div>
@@ -14,23 +20,38 @@ export const AppFooter = () => {
             </li>
             <li className="footer__info__item">
               {' '}
-              <NavLink to="/"> Home </NavLink>
+              <NavLink to="/" onClick={slideAction}>
+                {' '}
+                Home{' '}
+              </NavLink>
             </li>
             <li className="footer__info__item">
               {' '}
-              <NavLink to="/products/pizza"> Pizza </NavLink>
+              <NavLink to="/products/pizza" onClick={slideAction}>
+                {' '}
+                Pizza{' '}
+              </NavLink>
             </li>
             <li className="footer__info__item">
               {' '}
-              <NavLink to="/products/sushi"> Sushi </NavLink>
+              <NavLink to="/products/sushi" onClick={slideAction}>
+                {' '}
+                Sushi{' '}
+              </NavLink>
             </li>
             <li className="footer__info__item">
               {' '}
-              <NavLink to="/products/drinks"> Drinks </NavLink>
+              <NavLink to="/products/drinks" onClick={slideAction}>
+                {' '}
+                Drinks{' '}
+              </NavLink>
             </li>
             <li className="footer__info__item">
               {' '}
-              <NavLink to="/products-cart"> cart </NavLink>
+              <NavLink to="/products-cart" onClick={slideAction}>
+                {' '}
+                cart{' '}
+              </NavLink>
             </li>
           </ul>
           <ul className="footer__info" onClick={(e) => e.preventDefault()}>
